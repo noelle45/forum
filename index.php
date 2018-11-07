@@ -15,8 +15,9 @@ if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 	<p><label for="pseudo">Pseudo :</label><br/><input name="pseudo" type="text" id="pseudo" /><br />
 	<label for="password">Mot de Passe :</label><br/><input type="password" name="password" id="password" />
 	<input type="submit" value="Connexion" /></p></form>
+	<p><a href="membres/register.php">Pas encore inscrit(e) ?</a></p>
 	</fieldset>
-	<p><a href="./register.php">Pas encore inscrit(e) ?</a></p>
+	
 
 	</div>
 	</body>

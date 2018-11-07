@@ -110,7 +110,17 @@ fieldset
 h1
 {
 	text-align: center;
-	margin-top: -100px;
+	margin-top: ;
 	font-size: 20px;
 	margin-bottom: 50px;
+}
+
+.parag_centre
+{
+	text-align: center;
+}
+
+.h1_accueil
+{
+	margin-top: -100px;
 }

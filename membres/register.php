@@ -69,8 +69,8 @@ else //On est dans le cas traitement
     $msn = $_POST['msn'];
     $website = $_POST['website'];
     $localisation = $_POST['localisation'];
-    $pass = md5($_POST['password']);
-    $confirm = md5($_POST['confirm']);
+    $pass = ($_POST['password']);
+    $confirm = ($_POST['confirm']);
 	
     //Vérification du pseudo
     $query=$db->prepare('SELECT COUNT(*) AS nbr FROM forum_membres WHERE membre_pseudo =:pseudo');
@@ -222,7 +222,7 @@ else //On est dans le cas traitement
 
 }
 
-include("includes/footer_simple.php");
+include("../includes/footer_simple.php");
 ?>
 </div>
 </body>
