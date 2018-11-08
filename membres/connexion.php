@@ -8,7 +8,7 @@ if(isset($_POST['pseudo'])){
 	include('../includes/baniere-non-connecte.php');
 }
 
-
+echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Connexion<br/><br/>';
 echo '<h1 class="p_message>Connexion</h1>';
 
 
@@ -40,10 +40,7 @@ else
 				 $_SESSION['level'] = $data['membre_rang'];
 				 $_SESSION['id'] = $data['membre_id'];
 				 $_SESSION['avatar'] = $data['membre_avatar'];
-				 $message = '<p class="p_message">Bienvenue '.$data['membre_pseudo'].', 
-					vous êtes maintenant connecté!</p>
-					<p class="p_message">Cliquez <a href="accueil.php">ici</a> 
-					pour revenir à la page d accueil</p>';  
+				 header('Location: accueil.php');
 			}
 			else // Acces pas OK !
 			{

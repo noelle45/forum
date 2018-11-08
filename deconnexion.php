@@ -4,6 +4,8 @@ $titre="Déconnexion";
 include("includes/identifiants.php");
 include("includes/debut.php");
 
+echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="index.php"> Accueil forum</a>  ||  Déconnexion<br/><br/>';
+
 
 session_destroy();
 $query=$db->prepare('DELETE FROM forum_whosonline WHERE online_id= :id');

@@ -1,7 +1,7 @@
 body
 {
-	background-color: #EAECEE;
-	margin-top: 260px;
+	background-color: #ABB2B9;
+	margin-top: 210px;
 }
 
 .p_baniere
@@ -11,18 +11,37 @@ body
 
 .bg_banniere
 {
-	background-color: #6D7277;
+	background-color: #ABB2B9;
+}
+
+.legend
+{
+	color: black;
+	font-size: 20px;
 }
 
 .include_fixed
 {
 	position: fixed;
 	top: 0;
-	height: 220px;
+	height: 200px;
 	bottom: 0;
 	right: 0;
 	width: 100%;
-	background-color: #6D7277;
+	background-color: #ABB2B9;
+	padding-left: 50px;
+	color: white;
+}
+
+.include_fixed_2
+{
+	position: fixed;
+	top: 0;
+	height: 150px;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: #ABB2B9;
 	padding-left: 50px;
 	color: white;
 }
@@ -91,7 +110,7 @@ th
   padding-right : 25px;
   height : 40px;
   color:#524E50;
-  background-color : #9E9698;
+  background-color : #D6DBDF;
 }
 
 td
@@ -102,7 +121,7 @@ td
   padding-right:25px;
   padding-bottom : 8px;
   padding-top : 8px;
-  background-color: #CDC2C4;
+  background-color: #EAEDED;
   vertical-align:top;
   text-align : left;
 }

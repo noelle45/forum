@@ -15,6 +15,7 @@ if(isset($_SESSION['pseudo'])){
 			{
 				 //Si c'est "consulter"
 				 case "consulter":
+					echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Profile<br/><br/>';
 					 //On récupère les infos du membre
 					 $query=$db->prepare('SELECT membre_id, membre_pseudo, membre_avatar,
 					 membre_email, membre_msn, membre_signature, membre_siteweb, membre_post,
@@ -23,44 +24,50 @@ if(isset($_SESSION['pseudo'])){
 					 $query->bindValue(':membre',$membre, PDO::PARAM_INT);
 					 $query->execute();
 					 $data=$query->fetch();
+						
 
-					 if($_SESSION['pseudo'] != $data['membre_pseudo']) {
-					 echo'<h2>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h2>';
-					 echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
-					 }
-
-					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
-					 echo'<p><strong>Adresse E-Mail : </strong>
-					 <a href="mailto:'.stripslashes($data['membre_email']).'">
-					 '.stripslashes(htmlspecialchars($data['membre_email'])).'</a><br />';
-					}
-					else
-					{
-						echo '<p> Adresse email masquèe </p>'; 
-					}
+							 if($_SESSION['pseudo'] != $data['membre_pseudo']) 
+							 {
+							 echo'<h2>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h2>';
+							 }
 					
-					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
-					 echo'<strong>MSN Messenger : </strong>'.stripslashes(htmlspecialchars($data['membre_msn'])).'<br />';
-					}
-					else
-					{
-						echo '<p> Adresse messenger masquèe </p>'; 
-					}
+							
 
-					 echo'<strong>Site Web : </strong>
-					 <a href="'.stripslashes($data['membre_siteweb']).'">'.stripslashes(htmlspecialchars($data['membre_siteweb'])).'</a>
-					 <br /><br />';
+							if($_SESSION['pseudo'] == $data['membre_pseudo']) 
+							{
+								echo'<p><strong>Adresse E-Mail : </strong>
+								<a href="mailto:'.stripslashes($data['membre_email']).'">
+								'.stripslashes(htmlspecialchars($data['membre_email'])).'</a><br />';
+							}
+							else
+							{
+								echo '<p> Adresse email masquèe </p>'; 
+							}
+					
+							if($_SESSION['pseudo'] == $data['membre_pseudo']) 
+							{
+								echo'<strong>MSN Messenger : </strong>'.stripslashes(htmlspecialchars($data['membre_msn'])).'<br />';
+							}
+							else
+							{
+								echo '<p> Adresse messenger masquèe </p>'; 
+							}
 
-					 echo'Ce membre est inscrit depuis le
-					 <strong>'.date('d/m/Y',$data['membre_inscrit']).'</strong>
-					 et a posté <strong>'.$data['membre_post'].'</strong> messages
-					 <br /><br />';
-					 echo'<strong>Localisation : </strong>'.stripslashes(htmlspecialchars($data['membre_localisation'])).'';
+					echo'<strong>Site Web : </strong>
+					<a href="'.stripslashes($data['membre_siteweb']).'">'.stripslashes(htmlspecialchars($data['membre_siteweb'])).'</a>
+					<br /><br />';
+
+					echo'Ce membre est inscrit depuis le
+					<strong>'.date('d/m/Y',$data['membre_inscrit']).'</strong>
+					et a posté <strong>'.$data['membre_post'].'</strong> messages
+					<br /><br />';
+					echo'<strong>Localisation : </strong>'.stripslashes(htmlspecialchars($data['membre_localisation'])).'';
 					echo'<p><strong>Signature : </strong>'.stripslashes(htmlspecialchars($data['membre_signature'])).'</p><br/>';
 
 					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
 					echo'<p><a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=modifier"><div class="img_modif_profil"><img src="../img/icones/modifier_profil_femme.png" alt="Modifier mon profil" height="60px"/></div><br/><span class="text_modif_profil"> Modifier mon profil<span></a></p>';
 					}
+								
 					if($_SESSION['pseudo'] != $data['membre_pseudo']) {
 					echo'<p><a href="./messagesprives.php?action=repondre&amp;dest='.$data['membre_id'].'"><div class="img_message_prive"><img src="../img/icones/silver-metal-mail-envelop.png" height="80px" alt="Envoyer un MP"/></div><br/> Envoyer un message privé à ' .$_SESSION['pseudo'].'</a>   
 					</p><br/>';
@@ -73,6 +80,7 @@ if(isset($_SESSION['pseudo'])){
 
 			//Si on choisit de modifier son profil
 				 case "modifier":
+					echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Profil  || Modifier';
 				 if (empty($_POST['sent'])) // Si la variable est vide, on peut considérer qu'on est sur la page de formulaire
 				 {
 					  //On commence par s'assurer que le membre est connecté
@@ -257,8 +265,8 @@ if(isset($_SESSION['pseudo'])){
 								 $avatar_erreur3 = "Extension de l'avatar incorrecte";
 					  }
 				 }
-				 echo '<p><i>Vous êtes ici</i> : <a href="accueil.php">Index du forum</a> --> Modification du profil';
-				 echo '<p>Modification d\'un profil</p>';
+				
+				 echo '<h1>Modification de mon profil</h1>';
 
 
 				 if ($i == 0) // Si $i est vide, il n'y a pas d'erreur
@@ -286,7 +294,7 @@ if(isset($_SESSION['pseudo'])){
 					  }
 
 					  echo'<p>Modification terminée</p>';
-					  echo'<p>Votre profil a été modifié avec succès !</p>';
+					  echo'<p>Votre profil a été modifié avec succès !</p><br/> Les changements seront pris en compte lors de votre prochaine connexion<br/><a href="deconnexion.php">Me reconnecter</a>';
 					  echo'<p>Cliquez <a href="accueil.php">ici</a> 
 					  pour revenir à la page d\'accueil</p>';
 
@@ -336,7 +344,7 @@ if(isset($_SESSION['pseudo'])){
 }
 else
 {echo  'Vous ne pouvez pas accéder à cette page si vous n\'êtes pas connecté(e)<br/><br/>';
- echo '<a href="../index.html"> Aller à l\'accueil du forum</a>'; 
+ echo '<a href="accueil.php"> Aller à l\'accueil du forum</a>'; 
 }
 ?>
 </div>

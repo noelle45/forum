@@ -4,7 +4,7 @@ $titre="Enregistrement";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
 
-echo '<p><i>Vous êtes ici</i> : <a href="../index.php">Index du forum</a> --> Enregistrement';
+echo '<p><i>Vous êtes ici</i> : <a href="deconnexion.php">Index du forum</a>  ||  Enregistrement';
 
 ?>
 
@@ -69,8 +69,8 @@ else //On est dans le cas traitement
     $msn = $_POST['msn'];
     $website = $_POST['website'];
     $localisation = $_POST['localisation'];
-    $pass = ($_POST['password']);
-    $confirm = ($_POST['confirm']);
+    $pass = md5($_POST['password']);
+    $confirm = md5($_POST['confirm']);
 	
     //Vérification du pseudo
     $query=$db->prepare('SELECT COUNT(*) AS nbr FROM forum_membres WHERE membre_pseudo =:pseudo');
@@ -136,8 +136,8 @@ else //On est dans le cas traitement
     {
         //On définit les variables :
         $maxsize = 30072; //Poid de l'image
-        $maxwidth = 100; //Largeur de l'image
-        $maxheight = 100; //Longueur de l'image
+        $maxwidth = 400; //Largeur de l'image
+        $maxheight = 400; //Longueur de l'image
         $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' ); 
 		//Liste des extensions valides
         
@@ -173,7 +173,7 @@ else //On est dans le cas traitement
    {
 	echo'<h1>Inscription terminée</h1>';
         echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
-	<p>Cliquez <a href="accueil.php">ici</a> pour revenir à la page d\'accueil</p>';
+	<p>Cliquez <a href="deconnexion.php">ici</a> pour revenir à la page d\'accueil</p>';
 	
         //La ligne suivante sera commentée plus bas
 	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):''; 
@@ -217,12 +217,28 @@ else //On est dans le cas traitement
         echo'<p>'.$avatar_erreur2.'</p>';
         echo'<p>'.$avatar_erreur3.'</p>';
        
-        echo'<p>Cliquez <a href="register.php">ici</a> pour recommencer</p>';
+        echo'<p>Cliquez <a href="./register.php">ici</a> pour recommencer</p>';
     }
 
 }
 
-include("../includes/footer_simple.php");
+// Récupération des variables nécessaires au mail de confirmation	
+			$email = $_POST['email'];
+			$login = $_POST['pseudo'];
+			 
+			// Préparation du mail contenant le lien d'activation
+			$destinataire = $email;
+			$sujet = "Bienvenue !" ;
+			$entete = "From: monge.noelle@gmail.com" ;
+			 
+			// Message
+			$message = 'Bienvenue sur le forum,
+			 
+			---------------
+			Ceci est un mail automatique, Merci de ne pas y répondre.';
+			 
+			mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
+
 ?>
 </div>
 </body>

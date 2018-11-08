@@ -100,7 +100,14 @@ a, a:hover, a:focus, a:active
 
 .field_constants 
 { 
-	width : 20%; text-align: left; color: gray;
+	width : 400px; text-align: left;
+	color: gray;
+}
+
+.legend
+{
+	color: black;
+	font-size: 20px;
 }
 
 fieldset
@@ -114,6 +121,9 @@ fieldset
 	background-position: top;
 	background-position: right;
 	background-color:white;
+	position: absolute;
+	margin-left: 35%;
+	margin-top: 10%;
 }
 
 h1

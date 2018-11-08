@@ -4,6 +4,7 @@ $titre="Déconnexion";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
 
+echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="../index.php"> Accueil forum</a>  ||  Déconnexion<br/><br/>';
 
 session_destroy();
 $query=$db->prepare('DELETE FROM forum_whosonline WHERE online_id= :id');
@@ -22,7 +23,7 @@ if (isset ($_COOKIE['pseudo']))
 setcookie('pseudo', '', -1);
 }
 session_destroy();
-?>
-<?php
-include("../includes/footer_non_connecte.php");
+
+header('Location: ../index.php');
+exit;
 ?>
