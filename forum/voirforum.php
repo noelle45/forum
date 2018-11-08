@@ -3,8 +3,7 @@ session_start();
 $titre="Voir un forum";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
-include("../includes/menu.php");
-
+include("../includes/baniere-forum.php");
 //On récupère la valeur de f
 $forum = (int) $_GET['f'];
 
@@ -21,8 +20,8 @@ $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
 ?>
 
 <?php
-echo '<p><i>Vous êtes ici</i> : <a href="../index.php">Index du forum</a> --> 
-<a href="./voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>';
+echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  
+<a href="voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>';
 
 //Nombre de pages
 
@@ -52,9 +51,6 @@ $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 echo '<h1>'.stripslashes(htmlspecialchars($data['forum_name'])).'</h1><br /><br />';
 
 
-//Et le bouton pour poster
-echo'<a href="./poster.php?action=nouveautopic&amp;f='.$forum.'">
-<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a>';
 $query->CloseCursor();
 ?>
 
@@ -89,6 +85,8 @@ if ($query->rowCount()>0)
         </tr>   
        
         <?php
+
+	
         //On commence la boucle
         while ($data=$query->fetch())
         {
@@ -99,7 +97,7 @@ if ($query->rowCount()>0)
                 echo'<tr><td><img src="./images/annonce.gif" alt="Annonce" /></td>
 
                 <td id="titre"><strong>Annonce : </strong>
-                <strong><a href="./voirtopic.php?t='.$data['topic_id'].'"                 
+                <strong><a href="voirtopic.php?t='.$data['topic_id'].'"                 
                 title="Topic commencé à
                 '.date('H\hi \l\e d M,y',$data['topic_time']).'">
                 '.stripslashes(htmlspecialchars($data['topic_titre'])).'</a></strong></td>
@@ -108,7 +106,7 @@ if ($query->rowCount()>0)
 
                 <td class="nombrevu">'.$data['topic_vu'].'</td>
 
-                <td><a href="./voirprofil.php?m='.$data['topic_createur'].'
+                <td><a href="../membres/voirprofil.php?m='.$data['topic_createur'].'
                 &amp;action=consulter">
                 '.stripslashes(htmlspecialchars($data['membre_pseudo_createur'])).'</a></td>';
 
@@ -118,10 +116,10 @@ if ($query->rowCount()>0)
 		$page = ceil($nbr_post / $nombreDeMessagesParPage);
 
                 echo '<td class="derniermessage">Par
-                <a href="./voirprofil.php?m='.$data['post_createur'].'
+                <a href="voirprofil.php?m='.$data['post_createur'].'
                 &amp;action=consulter">
                 '.stripslashes(htmlspecialchars($data['membre_pseudo_last_posteur'])).'</a><br />
-                A <a href="./voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">'.date('H\hi \l\e d M y',$data['post_time']).'</a></td></tr>';
+                A <a href="voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">'.date('H\hi \l\e d M y',$data['post_time']).'</a></td></tr>';
         }
         ?>
         </table>
@@ -153,7 +151,7 @@ if ($query->rowCount()>0)
 ?>
         <table>
         <tr>
-        <th><img src="./images/message.gif" alt="Message" /></th>
+        <th><img src="img/enveloppepetit.png" alt="Message" /></th>
         <th class="titre"><strong>Titre</strong></th>             
         <th class="nombremessages"><strong>Réponses</strong></th>
         <th class="nombrevu"><strong>Vus</strong></th>
@@ -165,11 +163,10 @@ if ($query->rowCount()>0)
        
         while ($data = $query->fetch())
         {
-                //Ah bah tiens... re vla l'echo de fou
-                echo'<tr><td><img src="./images/message.gif" alt="Message" /></td>
+                echo'<tr><td><img src="img/enveloppepetit.png" alt="Message" /></td>
 
                 <td class="titre">
-                <strong><a href="./voirtopic.php?t='.$data['topic_id'].'"                 
+                <strong><a href="voirtopic.php?t='.$data['topic_id'].'"                 
                 title="Topic commencé à
                 '.date('H\hi \l\e d M,y',$data['topic_time']).'">
                 '.stripslashes(htmlspecialchars($data['topic_titre'])).'</a></strong></td>
@@ -178,7 +175,7 @@ if ($query->rowCount()>0)
 
                 <td class="nombrevu">'.$data['topic_vu'].'</td>
 
-                <td><a href="./voirprofil.php?m='.$data['topic_createur'].'
+                <td><a href="../membres/voirprofil.php?m='.$data['topic_createur'].'
                 &amp;action=consulter">
                 '.stripslashes(htmlspecialchars($data['membre_pseudo_createur'])).'</a></td>';
 
@@ -188,15 +185,18 @@ if ($query->rowCount()>0)
 		$page = ceil($nbr_post / $nombreDeMessagesParPage);
 
                 echo '<td class="derniermessage">Par
-                <a href="./voirprofil.php?m='.$data['post_createur'].'
+                <a href="../membres/voirprofil.php?m='.$data['post_createur'].'
                 &amp;action=consulter">
                 '.stripslashes(htmlspecialchars($data['membre_pseudo_last_posteur'])).'</a><br />
-                A <a href="./voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">'.date('H\hi \l\e d M y',$data['post_time']).'</a></td></tr>';
+                A <a href="voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">'.date('H\hi \l\e d M y',$data['post_time']).'</a></td></tr>';
 
         }
         ?>
         </table>
         <?php
+		//bouton nouveau
+		echo'<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'">
+		<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
 }
 else //S'il n'y a pas de message
 {

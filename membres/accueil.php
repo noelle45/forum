@@ -70,7 +70,7 @@ while($data = $query->fetch())
 
     echo'<tr><td><img src="../img/icones/a_lire.gif" alt="message" /></td>
     <td class="titre"><strong>
-    <a href="./voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a></strong>
+    <a href="../forum/voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a></strong>
     <br />'.nl2br(stripslashes(htmlspecialchars($data['forum_desc']))).'</td>
 	 
 	 <td class="nombresujets">'.$data['forum_topic'].'</td>
@@ -88,9 +88,9 @@ while($data = $query->fetch())
 		 
          echo'<td class="derniermessage">
          '.date('H\hi \l\e d/M/Y',$data['post_time']).'<br />
-         <a href="./voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].'  </a>
-         <a href="./voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">
-         <img src="../img/icones/fleche_suivante.png" alt="go" height="40px"/></a></td></tr>';
+         <a href="..forum/voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].'  </a>
+         <a href="../forum/voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">
+         <img src="../img/icones/fleche_suivante_petit.png" alt="go" height="40px"/></a></td></tr>';
 
      }
      else

@@ -17,13 +17,17 @@ if (empty($_POST['pseudo'])) // Si la variable est vide, on peut considérer qu'
 	<fieldset><legend>Identifiants</legend><br/>
 	<label for="pseudo">* Pseudo </label> <br/> <input name="pseudo" type="text" id="pseudo" /> <br/>
 	(le pseudo doit contenir entre 3 et 15 caractères)<br /><br/>
+	
 	<label for="password">* Mot de Passe </label><br/><input type="password" name="password" id="password" /><br /><br/>
+	
 	<label for="confirm">* Confirmer le mot de passe </label><br/><br/><input type="password" name="confirm" id="confirm" /><br/>
 	</fieldset><br/>
 	
 	<fieldset><legend>Contacts</legend><br/>
 	<label class="email" for="email">* Votre adresse Mail </label><br/><input type="text" name="email" id="email" /><br /><br/>
+	
 	<label for="msn">Votre adresse MSN </label><br/><input type="text" name="msn" id="msn" /><br /><br/>
+	
 	<label for="website">Votre site web </label><br/><input type="text" name="website" id="website" /><br/>
 	</fieldset><br/>
 	
@@ -33,8 +37,11 @@ if (empty($_POST['pseudo'])) // Si la variable est vide, on peut considérer qu'
 	
 	<fieldset><legend>Profil sur le forum</legend><br/>
 	<label for="avatar">Choisissez votre avatar :</label><br/><input type="file" name="avatar" id="avatar" /><br/>(Taille max : 30Ko)<br />
+	
 	<label for="signature">Signature </label><br/><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea><br/><br/>
+	
 	<p>Les champs précédés d\'un * sont obligatoires</p>
+	
 	<label>Se souvenir de moi ?</label><br/><input type="checkbox" name="souvenir" /><br />
 
 	<p><input type="submit" value="S\'inscrire" /></p></form>
