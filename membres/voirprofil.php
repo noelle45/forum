@@ -26,29 +26,38 @@ if(isset($_SESSION['pseudo'])){
 
 
 					 //On affiche les infos sur le membre
-					echo '<p><i>Vous êtes ici</i> : <a href="accueil.php">Accueil du forum</a>';
-
-					echo'<p>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</p>';
-
-					echo'<p><a href="voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a> || 
+					echo '<p><i>Vous êtes ici</i> : <a href="accueil.php">Accueil du forum</a><br/><br/>';
+					
+					if($_SESSION['pseudo'] != $data['membre_pseudo']) {
+					echo'<p><a href="voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a> || ';
+					}
+					echo'
 			<a href="amis.php"> Mes amis</a> || 
 			<a href="messagesprives.php" title="Messagerie"> Ma messagerie</a> || 
 			<a href="memberlist.php" title="Voir la liste des membres"> Liste des membres connectés </a> || 
 			<a href="minichat/index.php">Ouvrir le MiniChat</a> || 
-			<a href="deconnexion.php" title="vous avez terminé votre visite ?">Me deconnecter</a><br/></p>
+			<a href="deconnexion.php" title="vous avez terminé votre visite ?">Me deconnecter</a><br/><br/></p>
 			';
-					echo'<p><a href="./messagesprives.php?action=repondre&amp;dest='.$data['membre_id'].'"><img src="../img/icones/silver-metal-mail-envelop.png" height="80px" alt="Envoyer un MP"/><br/> Envoyer un message privé à :<br>' .$_SESSION['pseudo'].'</a>   
-					</p>';
+					 echo'<h2>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h2>';
+					 echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
 
-
-
-					 echo'<p><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></p>';
-
+					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
 					 echo'<p><strong>Adresse E-Mail : </strong>
 					 <a href="mailto:'.stripslashes($data['membre_email']).'">
 					 '.stripslashes(htmlspecialchars($data['membre_email'])).'</a><br />';
-
+					}
+					else
+					{
+						echo '<p> Adresse email masquèe </p>'; 
+					}
+					
+					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
 					 echo'<strong>MSN Messenger : </strong>'.stripslashes(htmlspecialchars($data['membre_msn'])).'<br />';
+					}
+					else
+					{
+						echo '<p> Adresse messenger masquèe </p>'; 
+					}
 
 					 echo'<strong>Site Web : </strong>
 					 <a href="'.stripslashes($data['membre_siteweb']).'">'.stripslashes(htmlspecialchars($data['membre_siteweb'])).'</a>
@@ -59,12 +68,15 @@ if(isset($_SESSION['pseudo'])){
 					 et a posté <strong>'.$data['membre_post'].'</strong> messages
 					 <br /><br />';
 					 echo'<strong>Localisation : </strong>'.stripslashes(htmlspecialchars($data['membre_localisation'])).'';
-					echo'<p><strong>Signature : </strong>'.stripslashes(htmlspecialchars($data['membre_signature'])).'</p>';
+					echo'<p><strong>Signature : </strong>'.stripslashes(htmlspecialchars($data['membre_signature'])).'</p><br/>';
 
 					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
-					echo'<p><a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=modifier"><img src="../img/icones/modifier_profil_femme.png" alt="Modifier mon profil" height="80px"/><br/> Modifier mon profil</a></p>';
+					echo'<p><a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=modifier"><div class="img_modif_profil"><img src="../img/icones/modifier_profil_femme.png" alt="Modifier mon profil" height="60px"/></div><br/><span class="text_modif_profil"> Modifier mon profil<span></a></p>';
 					}
-					else{echo '<a href="../index.html"> Retout accueil </a>'; }
+					if($_SESSION['pseudo'] != $data['membre_pseudo']) {
+					echo'<p><a href="./messagesprives.php?action=repondre&amp;dest='.$data['membre_id'].'"><div class="img_message_prive"><img src="../img/icones/silver-metal-mail-envelop.png" height="80px" alt="Envoyer un MP"/></div><br/> Envoyer un message privé à ' .$_SESSION['pseudo'].'</a>   
+					</p><br/>';
+					}
 
 					 $query->CloseCursor();
 					 break;

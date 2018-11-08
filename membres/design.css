@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
-@import url('https://fonts.googleapis.com/css?family=BioRhyme+Expanded');
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-@import url('https://fonts.googleapis.com/css?family=Pacifico');
+body
+{
+	background-color: #EAECEE;
+}
 
 #banniere
 {
@@ -92,11 +92,11 @@ a, a:hover, a:focus, a:active
   color: #524E4F; 
 }
 
-.field_constants { width : 20%; }
+.field_constants { width : 20%; color: gray;}
 
 fieldset
 {
-	color:#DAB8B8;
+	color:gray;
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
@@ -115,6 +115,9 @@ h1
 	margin-bottom: 50px;
 }
 
+h2
+{margin-left: 20px;}
+
 .parag_centre
 {
 	text-align: center;
@@ -122,5 +125,15 @@ h1
 
 .h1_accueil
 {
-	margin-top: -100px;
+	margin-top: -80px;
+}
+
+.img_message_prive, .img_message_avatar, .img_modif_profil
+{
+	margin-left: 50px;
+}
+
+.text_modif_profil
+{
+	margin-left: 20px;
 }

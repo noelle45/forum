@@ -31,11 +31,12 @@ if(isset($_SESSION['pseudo']))
 echo'<i><p>Vous êtes ici : </i><a href ="./index.php">Accueil forum</a></p><br/>
 <h1>Bonjour et Bienvenue '.htmlspecialchars($_SESSION['pseudo']).'!</h1>
 
-<h4><a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a> - 
-<a href="amis.php"> Mes amis</a> - 
-<a href="messagesprives.php" title="Messagerie"> Ma messagerie</a> - 
-<a href="deconnexion.php" title="vous avez terminé votre visite ?"> Me deconnecter</a><br/>
-<a href="memberlist.php" title="Voir la liste des membres"> Liste des membres connectés</a><br/></h4>
+<p class="p_index_connecte"><a href="membres/voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a>  ||  
+<<a href="amis.php"> Mes amis</a>  ||  
+<a href="messagesprives.php" title="Messagerie"> Ma messagerie</a>  ||  
+<a href="memberlist.php" title="Voir la liste des membres"> Liste des membres connectés</a>  ||  
+<a href="deconnexion.php" title="vous avez terminé votre visite ?"> Me deconnecter</a>
+</p>
 ';
 }
 else
