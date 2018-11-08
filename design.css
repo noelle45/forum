@@ -92,7 +92,16 @@ a, a:hover, a:focus, a:active
   color: #524E4F; 
 }
 
-.field_constants { width : 20%; text-align: left; color: gray;}
+.p_message
+{
+	text-align: center;
+	font-size : 20px;
+}
+
+.field_constants 
+{ 
+	width : 20%; text-align: left; color: gray;
+}
 
 fieldset
 {

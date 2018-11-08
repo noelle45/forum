@@ -11,8 +11,8 @@ $query->bindValue(':id',$id,PDO::PARAM_INT);
 $query->execute();
 $query->CloseCursor();
 
-echo '<p>Vous êtes à présent déconnecté(e) !<br /></p>
-<p>Cliquez <a href="index.php">ici</a> pour revenir à la page d\'accueil du forum.</p><br />';
+echo '<p class="p_message">Vous êtes à présent déconnecté(e) !<br /></p>
+<p class="p_message">Cliquez <a href="index.php">ici</a> pour revenir à la page d\'accueil du forum.</p><br />';
 echo '</div></body></html>';
 ?>
 <?php

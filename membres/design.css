@@ -1,6 +1,36 @@
 body
 {
 	background-color: #EAECEE;
+	margin-top: 260px;
+}
+
+.p_baniere
+{
+	margin-left: 25px;
+}
+
+.bg_banniere
+{
+	background-color: #6D7277;
+}
+
+.include_fixed
+{
+	position: fixed;
+	top: 0;
+	height: 220px;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: #6D7277;
+	padding-left: 50px;
+	color: white;
+}
+
+.p_message
+{
+	text-align: center;
+	font-size : 20px;
 }
 
 #banniere
@@ -89,7 +119,7 @@ table
 
 a, a:hover, a:focus, a:active
 {
-  color: #524E4F; 
+  color: black; 
 }
 
 .field_constants { width : 20%; color: gray;}
@@ -125,7 +155,7 @@ h2
 
 .h1_accueil
 {
-	margin-top: -80px;
+	margin-top: -150px;
 }
 
 .img_message_prive, .img_message_avatar, .img_modif_profil

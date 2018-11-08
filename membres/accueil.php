@@ -16,29 +16,7 @@ include("../includes/debut.php");
         $query->execute();
         $data=$query->fetch();
 
-if(isset($_SESSION['pseudo']))
-{
- echo'<p><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></p>';
-
- echo '<p>Compte de '.htmlspecialchars($_SESSION['pseudo']).'  ||  <a href="deconnexion.php" title="vous avez terminé votre visite ?"> Me deconnecter</a><p>';
-	
-echo'<i><p>Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a><br/>
-
-<h1 class="h1_accueil">Bonjour et bienvenue '.htmlspecialchars($_SESSION['pseudo']).'</h1>';
-	
-echo'<p class="parag_centre"><a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a>  ||  
-<a href="amis.php"> Mes amis</a>  ||  
-<a href="messagesprives.php" title="Messagerie"> Ma messagerie</a>  ||  
-<a href="memberlist.php" title="Voir la liste des membres"> Liste des membres connectés</a>
-</p>
-';
-}
-	
-else
-{
-	echo '<h1>Bonjour et Bienvenue !<br/> vous n\'êtes pas connecté(e)</h1><br/>
-	<p><a href="../index.php" title="Me connecter"> Me connecter</a>  ||  <a href="register.php" title="M\'inscrire"> M\'inscrire</a></p>';
-}	
+include('../includes/baniere-membres.php');	
 
 $totaldesmessages = 0;
 $categorie = NULL;

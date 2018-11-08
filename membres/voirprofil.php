@@ -3,6 +3,7 @@ session_start();
 $titre="Profil";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
+include("../includes/baniere-membres.php");
 
 if(isset($_SESSION['pseudo'])){
 			//On récupère la valeur de nos variables passées par URL
@@ -23,23 +24,10 @@ if(isset($_SESSION['pseudo'])){
 					 $query->execute();
 					 $data=$query->fetch();
 
-
-
-					 //On affiche les infos sur le membre
-					echo '<p><i>Vous êtes ici</i> : <a href="accueil.php">Accueil du forum</a><br/><br/>';
-					
-					if($_SESSION['pseudo'] != $data['membre_pseudo']) {
-					echo'<p><a href="voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">Mon profil</a> || ';
-					}
-					echo'
-			<a href="amis.php"> Mes amis</a> || 
-			<a href="messagesprives.php" title="Messagerie"> Ma messagerie</a> || 
-			<a href="memberlist.php" title="Voir la liste des membres"> Liste des membres connectés </a> || 
-			<a href="minichat/index.php">Ouvrir le MiniChat</a> || 
-			<a href="deconnexion.php" title="vous avez terminé votre visite ?">Me deconnecter</a><br/><br/></p>
-			';
+					 if($_SESSION['pseudo'] != $data['membre_pseudo']) {
 					 echo'<h2>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h2>';
 					 echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
+					 }
 
 					if($_SESSION['pseudo'] == $data['membre_pseudo']) {
 					 echo'<p><strong>Adresse E-Mail : </strong>
@@ -98,8 +86,7 @@ if(isset($_SESSION['pseudo'])){
 					  $query->bindValue(':id',$id,PDO::PARAM_INT);
 					  $query->execute();
 					  $data=$query->fetch();
-					  echo '<p><i>Vous êtes ici</i> : <a href="accueil.php">Accueil du forum</a> --> 
-					profil de '.stripslashes(htmlspecialchars($data['membre_pseudo']));
+
 					echo'<p>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</p>';
 					echo'<p>Modification du profil</p>';
 
@@ -109,7 +96,7 @@ if(isset($_SESSION['pseudo'])){
 					  Pseudo : <strong>'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</strong><br /><br/>       
 					  <label for="password">Nouveau mot de Passe :</label><br/>
 					  <input type="password" name="password" id="password" /><br /><br/>
-					  <label for="confirm">Confirmer le mot de passe :</label><br/>
+					  <label for="confirm">Confirmer le mot de passe :</label><br/></br>
 					  <input type="password" name="confirm" id="confirm"  />
 					  </fieldset><br/>
 
