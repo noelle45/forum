@@ -88,7 +88,7 @@ else
 				<img src="../img/icones/delete.gif" alt="Supprimer" title="Supprimer ce message" /></a>
 				
 				<a href="poster.php?p='.$data['post_id'].'&amp;action=edit">
-				<img src="img/editerpetit.png" alt="Editer height="10px" title="Editer ce message" /></a></td></tr>';
+				<img src="../img/icones/editer.gif" alt="Editer" title="Editer ce message" /></a></td></tr>';
          }
          else
          {

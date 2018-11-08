@@ -49,7 +49,8 @@ $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 
 //Le titre du forum
 echo '<h1>'.stripslashes(htmlspecialchars($data['forum_name'])).'</h1><br /><br />';
-
+echo'<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'">
+		<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
 
 $query->CloseCursor();
 ?>
@@ -163,7 +164,7 @@ if ($query->rowCount()>0)
        
         while ($data = $query->fetch())
         {
-                echo'<tr><td><img src="img/enveloppepetit.png" alt="Message" /></td>
+                echo'<tr><td><img src="../img/icones/fleche_suivante_petit.png" height="30px" alt="Message" /></td>
 
                 <td class="titre">
                 <strong><a href="voirtopic.php?t='.$data['topic_id'].'"                 
@@ -194,7 +195,6 @@ if ($query->rowCount()>0)
         ?>
         </table>
         <?php
-		//bouton nouveau
 		echo'<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'">
 		<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
 }
