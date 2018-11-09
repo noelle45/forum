@@ -20,7 +20,7 @@ $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
 ?>
 
 <?php
-echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  
+echo '<p><i>&nbsp; &nbsp; Vous êtes ici</i> : &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp; &nbsp;  
 <a href="voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>';
 
 //Nombre de pages
@@ -29,7 +29,7 @@ echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum
 $page = (isset($_GET['page']))?intval($_GET['page']):1;
 
 //On affiche les pages 1-2-3, etc.
-echo '<p>Page : ';
+echo ' <p> &nbsp; &nbsp; Page : ';
 for ($i = 1 ; $i <= $nombreDePages ; $i++)
 {
     if ($i == $page) //On ne met pas de lien sur la page actuelle
@@ -47,18 +47,9 @@ echo '</p>';
 
 $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 
-//Le titre du forum
-echo '<h1>'.stripslashes(htmlspecialchars($data['forum_name'])).'</h1><br /><br />';
-echo'<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'">
-		<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
-
 $query->CloseCursor();
-?>
 
-<?php
 //On prend tout ce qu'on a sur les Annonces du forum
-       
-
 $query=$db->prepare('SELECT forum_topic.topic_id, topic_titre, topic_createur, topic_vu, topic_post, topic_time, topic_last_post,
 Mb.membre_pseudo AS membre_pseudo_createur, post_createur, post_time, Ma.membre_pseudo AS membre_pseudo_last_posteur, post_id FROM forum_topic 
 LEFT JOIN forum_membres Mb ON Mb.membre_id = forum_topic.topic_createur
@@ -68,10 +59,7 @@ WHERE topic_genre = "Annonce" AND forum_topic.forum_id = :forum
 ORDER BY topic_last_post DESC');
 $query->bindValue(':forum',$forum,PDO::PARAM_INT);
 $query->execute();
-?>
 
-<?php
-//On lance notre tableau seulement s'il y a des requêtes !
 if ($query->rowCount()>0)
 {
         ?>
@@ -87,8 +75,6 @@ if ($query->rowCount()>0)
        
         <?php
 
-	
-        //On commence la boucle
         while ($data=$query->fetch())
         {
                 //Pour chaque topic :
@@ -127,12 +113,6 @@ if ($query->rowCount()>0)
         <?php
 }
 $query->CloseCursor();
-?>
-
-<!-- -->
-<?php
-//On prend tout ce qu'on a sur les topics normaux du forum
-
 
 $query=$db->prepare('SELECT forum_topic.topic_id, topic_titre, topic_createur, topic_vu, topic_post, topic_time, topic_last_post,
 Mb.membre_pseudo AS membre_pseudo_createur, post_id, post_createur, post_time, Ma.membre_pseudo AS membre_pseudo_last_posteur FROM forum_topic
@@ -160,7 +140,6 @@ if ($query->rowCount()>0)
         <th class="derniermessage"><strong>Dernier message  </strong></th>
         </tr>
         <?php
-        //On lance la boucle
        
         while ($data = $query->fetch())
         {

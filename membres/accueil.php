@@ -17,7 +17,7 @@ include("../includes/debut.php");
         $data=$query->fetch();
 
 include('../includes/baniere-membres.php');	
-echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php"> Accueil forum</a><br/><br/>';
+echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php"> Accueil forum</a><br/><br/>';
 
 $totaldesmessages = 0;
 $categorie = NULL;

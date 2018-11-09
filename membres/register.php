@@ -4,7 +4,7 @@ $titre="Enregistrement";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
 
-echo '<p><i>Vous êtes ici</i> : <a href="deconnexion.php">Index du forum</a>  ||  Enregistrement';
+echo '<p>&nbsp; &nbsp;<i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="deconnexion.php">Index du forum</a>  &nbsp; &nbsp;  Enregistrement';
 
 ?>
 
@@ -155,7 +155,7 @@ else //On est dans le cas traitement
         if ($_FILES['avatar']['size'] > $maxsize)
         {
                 $i++;
-                $avatar_erreur1 = "Le fichier est trop gros : (<strong>".$_FILES['avatar']['size']." Octets</strong>    contre <strong>".$maxsize." Octets</strong>)";
+                $avatar_erreur1 = "Le fichier est trop gros : (<strong>".$_FILES['avatar']['size']." Octets</strong> contre <strong>".$maxsize." Octets</strong>)";
         }
 
         $image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
@@ -179,8 +179,8 @@ else //On est dans le cas traitement
    if ($i==0)
    {
 	echo'<h1>Inscription terminée</h1>';
-        echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
-	<p>Cliquez <a href="deconnexion.php">ici</a> pour revenir à la page d\'accueil</p>';
+        echo'<p class="p_baniere">Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</br/>
+			Cliquez <a href="deconnexion.php">ici</a> pour revenir à la page d\'accueil</p>';
 	
         //La ligne suivante sera commentée plus bas
 	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):''; 
@@ -210,7 +210,7 @@ else //On est dans le cas traitement
     else
     {
         echo'<h1>Inscription interrompue</h1>';
-        echo'<p>Une ou plusieurs erreurs se sont produites pendant l incription</p>';
+        echo'<p class="p_baniere">Une ou plusieurs erreurs se sont produites pendant l incription</p>';
         echo'<p>'.$i.' erreur(s)</p>';
         echo'<p>'.$pseudo_erreur1.'</p>';
         echo'<p>'.$pseudo_erreur2.'</p>';
@@ -228,23 +228,6 @@ else //On est dans le cas traitement
     }
 
 }
-
-// Récupération des variables nécessaires au mail de confirmation	
-			$email = $_POST['email'];
-			$login = $_POST['pseudo'];
-			 
-			// Préparation du mail contenant le lien d'activation
-			$destinataire = $email;
-			$sujet = "Bienvenue !" ;
-			$entete = "From: monge.noelle@gmail.com" ;
-			 
-			// Message
-			$message = 'Bienvenue sur le forum,
-			 
-			---------------
-			Ceci est un mail automatique, Merci de ne pas y répondre.';
-			 
-			mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail
 
 ?>
 </div>

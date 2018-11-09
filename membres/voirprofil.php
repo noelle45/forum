@@ -15,7 +15,7 @@ if(isset($_SESSION['pseudo'])){
 			{
 				 //Si c'est "consulter"
 				 case "consulter":
-					echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Profile<br/><br/>';
+					echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp;  Profile<br/><br/>';
 					 //On récupère les infos du membre
 					 $query=$db->prepare('SELECT membre_id, membre_pseudo, membre_avatar,
 					 membre_email, membre_msn, membre_signature, membre_siteweb, membre_post,
@@ -29,6 +29,7 @@ if(isset($_SESSION['pseudo'])){
 							 if($_SESSION['pseudo'] != $data['membre_pseudo']) 
 							 {
 							 echo'<h2>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h2>';
+							 echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
 							 }
 					
 							
@@ -80,7 +81,7 @@ if(isset($_SESSION['pseudo'])){
 
 			//Si on choisit de modifier son profil
 				 case "modifier":
-					echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Profil  || Modifier';
+					echo'&nbsp; &nbsp;<i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp;  Profil  &nbsp; &nbsp; Modifier';
 				 if (empty($_POST['sent'])) // Si la variable est vide, on peut considérer qu'on est sur la page de formulaire
 				 {
 					  //On commence par s'assurer que le membre est connecté

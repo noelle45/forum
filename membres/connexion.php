@@ -8,7 +8,7 @@ if(isset($_POST['pseudo'])){
 	include('../includes/baniere-non-connecte.php');
 }
 
-echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="accueil.php">Accueil forum</a>  ||  Connexion<br/><br/>';
+echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp;  Connexion<br/><br/>';
 echo '<h1 class="p_message>Connexion</h1>';
 
 
@@ -47,7 +47,7 @@ else
 				 $message = '<p class="p_message">Une erreur s\'est produite 
 				 pendant votre identification.<br /> Le mot de passe ou le pseudo 
 				 entré n\'est pas correcte.</p>
-				 <br />Cliquez <a href="accueil.php">ici</a> 
+				 <br />Cliquez <a href="../index.php">ici</a> 
 				 pour revenir à la page d accueil</p>';
 			}
     $query->CloseCursor();

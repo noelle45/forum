@@ -3,7 +3,9 @@ session_start();
 $titre="Voir un sujet";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
-include("../includes/bbcode.php"); //On verra plus tard ce qu'est ce fichier
+include("../includes/bbcode.php");
+include("../includes/baniere-forum.php");
+
  
 //On récupère la valeur de t
 $topic = (int) $_GET['t'];
@@ -24,10 +26,7 @@ $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
 ?>
 
 <?php
-echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  <a href="./voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  ||  <a href="./voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>';
-
-
-echo '<h2>'.stripslashes(htmlspecialchars($data['forum_name']))."  |  ".stripslashes(htmlspecialchars($data['topic_titre'])).'</h2>';
+echo '<p>&nbsp; &nbsp; <i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="./voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  &nbsp; &nbsp;  <a href="./voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>';
 ?>
 
 <?php
