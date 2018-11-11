@@ -1,4 +1,7 @@
 <?php
+/// (variables non initialisées, variables mal orthographiées..)
+error_reporting(E_PARSE | E_NOTICE);
+
 if (isset ($_COOKIE['pseudo']) && empty($id))
 {
 	$_SESSION['pseudo'] = $_COOKIE['pseudo']; 

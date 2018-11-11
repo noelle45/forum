@@ -244,7 +244,7 @@ if(isset($_SESSION['pseudo']))
     }
     else
     {
-        echo '<br/><p class="p_message"> Vous ne pouvez pas accéder à cette page <br/><br/> <a href="../index.php"> Me connecter </a>';
+        echo '<br/><p class="p_message"> Vous ne pouvez pas accéder à cette page';
 }
 ?>
             

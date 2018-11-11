@@ -1,26 +1,23 @@
 <?php
 session_start();
 $titre="Connexion";
-include("includes/identifiants.php");
-include("includes/debut.php");
+include("../includes/identifiants.php");
+include("../includes/debut.php");
 
+if ($id!=0) erreur('');
+if (!isset($_POST['pseudo']))
 
-if ($id!=0) erreur(ERR_IS_CO);
-
-
-if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 {
-    
     echo '<fieldset class="field_constants"><legend>Connexion</legend>
 	
-	     <h1> Bonjour et bienvenu sur le forum </h1>
+	      <h1> Bonjour et bienvenu sur le forum </h1>
 		  <p> Pour accéder à cette section, merci de vous identifier</p>
-		  <p><a href="membres/register.php"> Pas encore inscrit ? </a></p><br/>
+		  <p><a href="register.php"> Pas encore inscrit ? </a></p><br/>
 		  ';
     
-	echo '<form method="post" action="index.php">
+	echo '<form method="post" action="connexion.php">
 	<p>
-	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br />
+	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br /><br/>
 	<label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
 	</p>
 	
@@ -30,7 +27,7 @@ if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 
 <?php
     echo '</form>
-	<a href="membres/register.php">Pas encore inscrit ?</a><br/>
+	<a href="register.php">Pas encore inscrit ?</a><br/>
     </fieldset>';
     
 
@@ -61,7 +58,7 @@ else
         $_SESSION['avatar'] = $data['membre_avatar'];
 	    $message = '<p>Bienvenue '.$data['membre_pseudo'].', 
 			vous êtes maintenant connecté!</p>
-			<p>Cliquez <a href="membres/accueil.php">ici</a> 
+			<p>Cliquez <a href="accueil.php">ici</a> 
 			pour revenir à la page d accueil</p>';  
 	}
 	else // Acces pas OK !

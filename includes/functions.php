@@ -1,11 +1,3 @@
-<?php
-function erreur($err='')
-{
-   $mess=($err!='')? $err:'Une erreur inconnue s\'est produite';
-   exit('<p>'.$mess.'</p>
-   <h3>Vous n\'êtes pas connecté ou vous n\'avez pas l\'autorisation d\'effectuer cette action <br/> <a href ="accueil.php">Vous ne pouvez pas effectuer cette action</a> </h3></div></body></html>');
-}   
-?>
 
 <?php
 function move_avatar($avatar)

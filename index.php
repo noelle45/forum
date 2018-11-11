@@ -4,13 +4,13 @@ $titre="Connexion";
 include("includes/identifiants.php");
 include("includes/debut.php");
 
-if (!isset($_POST['pseudo']))
+if(isset($_SESSION['pseudo']))
 {
-     header('Location: connexion.php');
-  exit();
+include('includes/functions2.php');
 }
 
-if ($id!=0) erreur(ERR_IS_CO);
+
+if ($id!=0) erreur('');
 
 
 if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
@@ -25,7 +25,7 @@ if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
     
 	echo '<form method="post" action="index.php">
 	<p>
-	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br />
+	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br /><br/>
 	<label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
 	</p>
 	

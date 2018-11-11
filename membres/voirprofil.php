@@ -5,6 +5,7 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 
 
+
 if(isset($_SESSION['pseudo'])){
 			//On récupère la valeur de nos variables passées par URL
 			$action = isset($_GET['action'])?htmlspecialchars($_GET['action']):'consulter';
@@ -24,7 +25,7 @@ if(isset($_SESSION['pseudo'])){
 					 $query->bindValue(':membre',$membre, PDO::PARAM_INT);
 					 $query->execute();
 					 $data=$query->fetch();
-				    
+                    
                     include("../includes/baniere-membres.php");
                     
                     if($_SESSION['pseudo'] != $data['membre_pseudo'])
@@ -88,6 +89,7 @@ if(isset($_SESSION['pseudo'])){
 
 			//Si on choisit de modifier son profil
 				 case "modifier":
+                    include("../includes/baniere-membres.php");
 					echo'<p>&nbsp; &nbsp;<i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp; 
 					<a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter"> Profil </a>  &nbsp; &nbsp; Modifier</p>';
 				 if (empty($_POST['sent'])) // Si la variable est vide, on peut considérer qu'on est sur la page de formulaire

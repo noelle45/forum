@@ -24,6 +24,6 @@ setcookie('pseudo', '', -1);
 }
 session_destroy();
 
-header('Location: ../connexion.php');
+header('Location: accueil.php');
 exit;
 ?>
