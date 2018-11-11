@@ -1,0 +1,140 @@
+body
+{
+	background-color: #EAECEE;
+}
+
+#banniere
+{
+width: 600px;
+height: 150px;
+background-position:  center;
+margin-bottom: 20px; 
+background-image: url('images/banniere.jpg');
+}
+
+#corps_forum
+{
+border: 1px solid black;
+width: 90%;
+margin-top: 50px;
+margin-left: 5%;
+margin-bottom: 10Opx;
+padding: 5px;
+background-color: rgb(237,224,213);
+}
+
+#footer
+{
+border: 1px solid black;
+width: 90%;
+margin-top: 50px;
+margin-left: 5%;
+margin-bottom: 10Opx;
+padding: 5px;
+background-color: rgb(237,224,213);
+}
+
+.ico {width:2%}
+.titre { width:61%; }
+.nombremessages { width:2%; }
+.nombrevu { width:4%; }
+.nombresujets { width:2%; }
+.auteur { width:7%; }
+.derniermessage { width:18%; }
+.categorie { width:92%; background-color : rgb(244,238,250); }
+
+label {
+display:block;
+width:150px;
+float:left;
+}
+
+th
+{
+  text-align: left;
+  font-size: 18px;
+  padding-left : 25px;
+  padding-right : 25px;
+  height : 40px;
+  color:#524E50;
+  background-color : #9E9698;
+}
+
+.parag_centre
+{
+    text-align: center;
+}
+
+td
+{
+  color : #524E4F;
+  font-size: 15px;
+  padding-left : 25px;	
+  padding-right:25px;
+  padding-bottom : 8px;
+  padding-top : 8px;
+  background-color: #CDC2C4;
+  vertical-align:top;
+  text-align : left;
+}
+
+table
+{
+  width:70%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom : 10px;
+  margin-top:10px;
+}
+
+a, a:hover, a:focus, a:active
+{
+  color: #524E4F; 
+}
+
+.p_message
+{
+	text-align: center;
+	font-size : 20px;
+}
+
+.field_constants 
+{ 
+	width : 400px; text-align: left;
+	color: gray;
+}
+
+.legend
+{
+	color: black;
+	font-size: 20px;
+}
+
+fieldset
+{
+	color:gray;
+	font-size: 15px;
+	margin-top : 10px;
+	width:50%;
+	background-image: ;
+	background-repeat: no-repeat;
+	background-position: top;
+	background-position: right;
+	background-color:white;
+	position: absolute;
+	margin-left: 35%;
+	margin-top: ;
+}
+
+h1
+{
+	text-align: center;
+	margin-top: ;
+	font-size: 20px;
+	margin-bottom: 50px;
+}
+
+.p_index_connecte
+{
+	text-align: center;
+}

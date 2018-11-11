@@ -1,0 +1,189 @@
+body
+{
+	background-color: #907E8A;
+	margin-top: 220px;
+}
+
+.p_baniere
+{
+	margin-left: 25px;
+}
+
+.f_baniere
+{
+	margin-left: 100px;
+}
+
+.bg_banniere
+{
+	background-color: #ABB2B9;
+}
+
+.legend
+{
+	color: black;
+	font-size: 20px;
+}
+
+.include_fixed
+{
+	position: fixed;
+	top: 0;
+	height: 200px;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: #532F47;
+	padding-left: 50px;
+	color: white;
+}
+
+.include_fixed_2
+{
+	position: fixed;
+	top: 0;
+	height: 150px;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: #532F47;
+	padding-left: 50px;
+	color: white;
+}
+
+.p_message
+{
+	text-align: center;
+	font-size : 20px;
+}
+
+#banniere
+{
+width: 600px;
+height: 150px;
+background-position:  center;
+margin-bottom: 20px; 
+background-image: url('images/banniere.jpg');
+}
+
+#corps_forum
+{
+border: 1px solid black;
+width: 90%;
+margin-top: 50px;
+margin-left: 5%;
+margin-bottom: 10Opx;
+padding: 5px;
+background-color: rgb(237,224,213);
+}
+
+#footer
+{
+border: 1px solid black;
+width: 90%;
+margin-top: 50px;
+margin-left: 5%;
+margin-bottom: 10Opx;
+padding: 5px;
+background-color: rgb(237,224,213);
+}
+
+.ico {width:2%}
+.titre { width:61%; }
+.nombremessages { width:2%; }
+.nombrevu { width:4%; }
+.nombresujets { width:2%; }
+.auteur { width:7%; }
+.derniermessage { width:18%; }
+.categorie { width:92%; background-color : rgb(244,238,250); }
+
+label {
+display:block;
+width:150px;
+float:left;
+}
+
+th
+{
+  text-align: left;
+  font-size: 18px;
+  padding-left : 25px;
+  padding-right : 25px;
+  height : 40px;
+  color:#524E50;
+  background-color : #9E9698;
+}
+
+td
+{
+  color : #524E4F;
+  font-size: 15px;
+  padding-left : 25px;	
+  padding-right:25px;
+  padding-bottom : 8px;
+  padding-top : 8px;
+  background-color: #CDC2C4;
+  vertical-align:top;
+  text-align : left;
+}
+
+table
+{
+  width:70%;
+  height:100%;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom : 10px;
+  margin-top:10px;
+}
+
+a, a:hover, a:focus, a:active
+{
+  color: white; 
+}
+
+.field_constants { width : 20%; color: gray;}
+
+fieldset
+{
+	color:gray;
+	font-size: 15px;
+	margin-top : 10px;
+	width:50%;
+	background-image: ;
+	background-repeat: no-repeat;
+	background-position: top;
+	background-position: right;
+	background-color:white;
+}
+
+h1
+{
+	text-align: center;
+	margin-top: ;
+	font-size: 20px;
+	margin-bottom: 50px;
+}
+
+h2
+{margin-left: 20px;}
+
+.parag_centre
+{
+	text-align: center;
+}
+
+.h1_accueil
+{
+	margin-top: -150px;
+}
+
+.img_message_prive, .img_message_avatar, .img_modif_profil
+{
+	margin-left: 50px;
+}
+
+.text_modif_profil
+{
+	margin-left: 20px;
+}

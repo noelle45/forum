@@ -1,10 +1,10 @@
 <?php
 session_start();
 $titre="Déconnexion";
-include("includes/identifiants.php");
-include("includes/debut.php");
+include("../includes/identifiants.php");
+include("../includes/debut.php");
 
-echo'<i><p class="p_baniere">Vous êtes ici : </i><a href ="index.php"> Accueil forum</a>  ||  Déconnexion<br/><br/>';
+echo'<i><p class="p_baniere">  &nbsp; &nbsp;  Vous êtes ici :  &nbsp; &nbsp;   </i><a href ="../index.php"> Accueil forum</a>  &nbsp; &nbsp;  Déconnexion<br/><br/>';
 
 
 session_destroy();
@@ -14,7 +14,7 @@ $query->execute();
 $query->CloseCursor();
 
 echo '<p class="p_message">Vous êtes à présent déconnecté(e) !<br /></p>
-<p class="p_message">Cliquez <a href="index.php">ici</a> pour revenir à la page d\'accueil du forum.</p><br />';
+<p class="p_message">Cliquez <a href="../index.php">ici</a> pour revenir à la page d\'accueil du forum.</p><br />';
 echo '</div></body></html>';
 ?>
 <?php
@@ -26,5 +26,5 @@ setcookie('pseudo', '', -1);
 session_destroy();
 ?>
 <?php
-include("includes/footer_non_connecte.php");
+include("../includes/footer_non_connecte.php");
 ?>

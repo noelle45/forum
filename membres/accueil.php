@@ -16,7 +16,7 @@ include("../includes/debut.php");
         $query->execute();
         $data=$query->fetch();
 
-include('../includes/baniere-membres.php');	
+ include("../includes/baniere-membres.php");
 echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php"> Accueil forum</a><br/><br/>';
 
 $totaldesmessages = 0;
@@ -105,8 +105,6 @@ while($data = $query->fetch())
 } //fin de la boucle
 $query->CloseCursor();
 echo '</table></div>';
-?>
-
-<?php
+   
 include("../includes/footer_membres.php");
 ?>

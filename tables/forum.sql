@@ -1,7 +1,3 @@
--- 
--- Table `forum_categorie`
--- 
- 
 CREATE TABLE `forum_categorie` (
   `cat_id` int(11) NOT NULL AUTO_INCREMENT,
   `cat_nom` varchar(30) collate latin1_general_ci NOT NULL,
@@ -9,10 +5,7 @@ CREATE TABLE `forum_categorie` (
   PRIMARY KEY  (`cat_id`),
   UNIQUE KEY `cat_ordre` (`cat_ordre`)
 );
- 
--- 
--- Table `forum_forum`
--- 
+
  
 CREATE TABLE `forum_forum` (
   `forum_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -32,10 +25,6 @@ CREATE TABLE `forum_forum` (
 ); 
  
  
--- 
--- Table `forum_membres`
--- 
- 
 CREATE TABLE `forum_membres` (
   `membre_id` int(11) NOT NULL AUTO_INCREMENT,
   `membre_pseudo` varchar(30) collate latin1_general_ci NOT NULL,
@@ -53,11 +42,6 @@ CREATE TABLE `forum_membres` (
   PRIMARY KEY  (`membre_id`)
 ); 
  
- 
--- 
--- Table `forum_post`
--- 
- 
 CREATE TABLE `forum_post` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_createur` int(11) NOT NULL,
@@ -67,13 +51,7 @@ CREATE TABLE `forum_post` (
   `post_forum_id` int(11) NOT NULL,
   PRIMARY KEY  (`post_id`)
 );
- 
- 
- 
--- 
--- Table  `forum_topic`
--- 
- 
+
 CREATE TABLE `forum_topic` (
   `topic_id` int(11) NOT NULL AUTO_INCREMENT,
   `forum_id` int(11) NOT NULL,
@@ -88,3 +66,14 @@ CREATE TABLE `forum_topic` (
   PRIMARY KEY  (`topic_id`),
   UNIQUE KEY `topic_last_post` (`topic_last_post`)
 );
+
+CREATE TABLE `forum_mp` (
+  mp_id int(11) NOT NULL AUTO_INCREMENT,
+  mp_expediteur int(11) NOT NULL,
+  mp_receveur int(11) NOT NULL,
+  mp_titre varchar(100) collate latin1_general_ci NOT NULL,
+  mp_text text collate latin1_general_ci NOT NULL,
+  mp_time int(11) NOT NULL,
+  mp_lu enum('0','1') collate latin1_general_ci NOT NULL,
+  PRIMARY KEY  (`mp_id`)
+)

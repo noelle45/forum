@@ -4,7 +4,9 @@ $titre="Enregistrement";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
 
-echo '<p>&nbsp; &nbsp;<i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="deconnexion.php">Index du forum</a>  &nbsp; &nbsp;  Enregistrement';
+
+
+echo '<p>&nbsp; &nbsp;<i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="accueil.php">Index du forum</a>  &nbsp; &nbsp;  Enregistrement';
 
 ?>
 
@@ -53,7 +55,7 @@ if (empty($_POST['pseudo'])) // Si la variable est vide, on peut considérer qu'
 	
 	
 } //Fin de la partie formulaire
-else //On est dans le cas traitement
+else 
 {
     $pseudo_erreur1 = NULL;
     $pseudo_erreur2 = NULL;
@@ -76,8 +78,9 @@ else //On est dans le cas traitement
     $msn = $_POST['msn'];
     $website = $_POST['website'];
     $localisation = $_POST['localisation'];
-    $pass = md5($_POST['password']);
-    $confirm = md5($_POST['confirm']);
+	 //$avatar = $_POST['avatar'];
+    $pass = ($_POST['password']);
+    $confirm = ($_POST['confirm']);
 	
     //Vérification du pseudo
     $query=$db->prepare('SELECT COUNT(*) AS nbr FROM forum_membres WHERE membre_pseudo =:pseudo');
@@ -180,18 +183,19 @@ else //On est dans le cas traitement
    {
 	echo'<h1>Inscription terminée</h1>';
         echo'<p class="p_baniere">Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</br/>
-			Cliquez <a href="deconnexion.php">ici</a> pour revenir à la page d\'accueil</p>';
+			Cliquez <a href="accueil.php">ici</a> pour entrer sur le forum</p>';
 	
         //La ligne suivante sera commentée plus bas
 	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):''; 
    
-        $query=$db->prepare('INSERT INTO forum_membres (membre_pseudo, membre_mdp, membre_email,             
+        $query=$db->prepare('INSERT INTO forum_membres 
+        (membre_pseudo, membre_mdp2, membre_email,             
         membre_msn, membre_siteweb, membre_avatar,
         membre_signature, membre_localisation, membre_inscrit,   
         membre_derniere_visite)
         VALUES (:pseudo, :pass, :email, :msn, :website, :nomavatar, :signature, :localisation, :temps, :temps)');
 	$query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-	$query->bindValue(':pass', $pass, PDO::PARAM_INT);
+	$query->bindValue(':pass', $pass, PDO::PARAM_STR);
 	$query->bindValue(':email', $email, PDO::PARAM_STR);
 	$query->bindValue(':msn', $msn, PDO::PARAM_STR);
 	$query->bindValue(':website', $website, PDO::PARAM_STR);
@@ -205,6 +209,7 @@ else //On est dans le cas traitement
         $_SESSION['pseudo'] = $pseudo;
         $_SESSION['id'] = $db->lastInsertId(); ;
         $_SESSION['level'] = 2;
+		  //$_SESSION['avatar'] = $avatar;
         $query->CloseCursor();
     }
     else
@@ -224,7 +229,7 @@ else //On est dans le cas traitement
         echo'<p>'.$avatar_erreur2.'</p>';
         echo'<p>'.$avatar_erreur3.'</p>';
        
-        echo'<p>Cliquez <a href="./register.php">ici</a> pour recommencer</p>';
+        echo'<p>Cliquez <a href="register.php">ici</a> pour recommencer</p>';
     }
 
 }
