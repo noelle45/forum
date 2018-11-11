@@ -9,23 +9,28 @@ $forum = (int) $_GET['f'];
 
 //A partir d'ici, on va compter le nombre de messages
 //pour n'afficher que les 25 premiers
-$query=$db->prepare('SELECT forum_name, forum_topic, auth_view, auth_topic FROM forum_forum WHERE forum_id = :forum');
+$query=$db->prepare('SELECT forum_name, forum_topic, auth_view, auth_topic auth_post FROM forum_forum WHERE forum_id = :forum');
 $query->bindValue(':forum',$forum,PDO::PARAM_INT);
 $query->execute();
 $data=$query->fetch();
-
 $totalDesMessages = $data['forum_topic'] + 1;
 $nombreDeMessagesParPage = 25;
 $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
-?>
 
-<?php
 echo '<p><i>&nbsp; &nbsp; Vous êtes ici</i> : &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp; &nbsp;  
-<a href="voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>';
+<a href="voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a><br/>';
+
+$query=$db->prepare('SELECT membre_rang
+FROM forum_membres WHERE membre_id=:id');
+$query->bindValue(':id',$id,PDO::PARAM_INT);
+$query->execute();
+$data=$query->fetch();
+
+if($data["membre_rang"] > 1){
+echo '<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'"><img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
+}
 
 //Nombre de pages
-
-
 $page = (isset($_GET['page']))?intval($_GET['page']):1;
 
 //On affiche les pages 1-2-3, etc.
@@ -104,7 +109,7 @@ if ($query->rowCount()>0)
 
                 echo '<td class="derniermessage">Par
                 <a href="voirprofil.php?m='.$data['post_createur'].'
-                &amp;action=consulter">
+                &amp;action=consulter">br/>
                 '.stripslashes(htmlspecialchars($data['membre_pseudo_last_posteur'])).'</a><br />
                 A <a href="voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">'.date('H\hi \l\e d M y',$data['post_time']).'</a></td></tr>';
         }
@@ -174,8 +179,6 @@ if ($query->rowCount()>0)
         ?>
         </table>
         <?php
-		echo'<h1><a href="poster.php?action=nouveautopic&amp;f='.$forum.'">
-		<img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
 }
 else //S'il n'y a pas de message
 {

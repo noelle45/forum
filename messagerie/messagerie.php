@@ -6,19 +6,15 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 include("../includes/bbcode.php");
 include("../includes/baniere-messagerie.php");
-
 $action = (isset($_GET['action']))?htmlspecialchars($_GET['action']):'';
-
 if(isset($_SESSION['pseudo']))
 {
         switch($action) //On switch sur $action
         {
             case "consulter": //Si on veut lire un message
-
                  echo'<p>  &nbsp; &nbsp;<i>Vous êtes ici</i> :   &nbsp; &nbsp; <a href="../membres/accueil">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;Consulter un message</p>';
                  $id_mess = (int) $_GET['id']; //On récupère la valeur de l'id
-
-                 //La requête nous permet d'obtenir les infos sur ce message :
+//La requête nous permet d'obtenir les infos sur ce message :
                  $query = $db->prepare('SELECT  mp_expediteur, mp_receveur, mp_titre,               
                  mp_time, mp_text, mp_lu, membre_id, membre_pseudo, membre_avatar,
                  membre_localisation, membre_inscrit, membre_post, membre_signature
@@ -28,11 +24,8 @@ if(isset($_SESSION['pseudo']))
                  $query->bindValue(':id',$id_mess,PDO::PARAM_INT);
                  $query->execute();
                  $data=$query->fetch();
-
                  // Attention ! Seul le receveur du mp peut le lire !
                  if ($id != $data['mp_receveur']) erreur(ERR_WRONG_USER);
-
-
                 ?>
                  <table>     
                      <tr>
@@ -50,15 +43,12 @@ if(isset($_SESSION['pseudo']))
                          </td>
                      </tr>
                  </table>
-
-                <?php
-
+<?php
                  echo'<p><img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Ce membre n\'a pas d\'avatar" />
                  <br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
                  <br />Messages : '.$data['membre_post'].'
                  <br />Localisation : '.stripslashes(htmlspecialchars($data['membre_localisation'])).'</p>
                  </td><td>';
-
                  echo code(nl2br(stripslashes(htmlspecialchars($data['mp_text'])))).'
                  <hr />'.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'
                  <br/><br/>';
@@ -66,8 +56,6 @@ if(isset($_SESSION['pseudo']))
                  echo '<a href="messagerie.php?action=repondre&amp;dest='.$data['mp_expediteur'].'"><img src="img/repondre.gif" alt="Répondre" title="Répondre à ce message"></a>
                  </table>
                  </td></tr><br/><br/>';
-
-
                       if ($data['mp_lu'] == 0)
                  {
                       $query->CloseCursor();
@@ -79,9 +67,8 @@ if(isset($_SESSION['pseudo']))
                  }
                 
         break;
-
+                
                 case "nouveau": 
-
                 echo'<p>  &nbsp; &nbsp;  <i>Vous êtes ici</i> :   &nbsp; &nbsp;   <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;  Ecrire un message</p>';
                 ?>
                 <form method="post" action="postok.php?action=nouveaump" name="formulaire">
@@ -114,12 +101,10 @@ if(isset($_SESSION['pseudo']))
                 </form>
             <?php   
         break;
-
-            case "repondre": 
+                
+                case "repondre": 
                 echo '<h1> Répondre </h1>';
-
                  $dest = (int) $_GET['dest'];
-
            ?>
            <form method="post" action="postok.php?action=repondremp&amp;dest=<?php echo $dest ?>" name="formulaire">
            <p><br/>
@@ -148,11 +133,8 @@ if(isset($_SESSION['pseudo']))
            </p></form>
            <?php
         break;
-
-
-
-             case "supprimer":
-
+                
+                case "supprimer":
             $id_mess = (int) $_GET['id'];
             $query=$db->prepare('SELECT mp_receveur
             FROM forum_mp WHERE mp_id = :id');
@@ -161,7 +143,6 @@ if(isset($_SESSION['pseudo']))
             $data = $query->fetch();
             if ($id != $data['mp_receveur']) erreur(ERR_WRONG_USER);
             $query->CloseCursor(); 
-
             $sur = (int) $_GET['sur'];
             if ($sur == 0)
             {
@@ -179,22 +160,20 @@ if(isset($_SESSION['pseudo']))
                 Cliquez <a href="messagerie.php">ici</a> pour revenir à la boite
                 de messagerie.</p>';
             }
-
             break;
-
                 default;
-
             echo'<p>  &nbsp; &nbsp;  <i>Vous êtes ici</i> :   &nbsp; &nbsp;   <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>';
-            echo '<br/><br/><img src="img/nouveau.gif" alt="Nouveau" title="Nouveau message" /></a></h1>';
-
-
+                
             $query=$db->prepare('SELECT mp_lu, mp_id, mp_expediteur, mp_titre, mp_time, membre_id, membre_pseudo
             FROM forum_mp
             LEFT JOIN forum_membres ON forum_mp.mp_expediteur = forum_membres.membre_id
             WHERE mp_receveur = :id ORDER BY mp_id DESC');
             $query->bindValue(':id',$id,PDO::PARAM_INT);
             $query->execute();
-
+                
+                //Bouton nouveau message
+                 echo'<p><a href="messagerie.php?action=nouveau"><img src="img/nouveau.gif" alt="Nouveau" title="Nouveau message" /></a></p>';
+                
             if ($query->rowCount()>0)
             {
                 ?>
@@ -208,7 +187,6 @@ if(isset($_SESSION['pseudo']))
                 </tr>
 
                 <?php
-
                 while ($data = $query->fetch())
                 {
                     echo'<tr>';
@@ -233,7 +211,6 @@ if(isset($_SESSION['pseudo']))
                 } //Fin de la boucle
                 $query->CloseCursor();
                 echo '</table>';
-
             } //Fin du if
             else
             {

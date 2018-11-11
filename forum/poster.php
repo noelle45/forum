@@ -70,9 +70,9 @@ elseif (isset ($_GET['p']))
     echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  ||  <a href="voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>  ||  Modérer un message</p>';
 }
 $query->CloseCursor();  
-?>
 
-<?php
+
+
 switch($action)
 {
 	case "repondre": //Premier cas on souhaite répondre
@@ -97,16 +97,18 @@ switch($action)
 	<img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
 	<img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
 	</fieldset>
-
-	<fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"></textarea></fieldset>
+	<fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"></textarea><br/><br/>
+    <input type="submit" name="submit" value="Envoyer" />
+	<input type="reset" name = "Effacer" value = "Effacer"/>    
+    </fieldset>
  
-	<input type="submit" name="submit" value="Envoyer" />
-	<input type="reset" name = "Effacer" value = "Effacer"/>
+
 	</form>
 	<?php
 break;
  
 	case "nouveautopic":
+        
 	?>
 
 	<h2>Nouveau topic</h2>
@@ -130,20 +132,106 @@ break;
 	<img src="img/choc.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
 	<img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
 	<img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
-		</fieldset>
+    </fieldset>
  
 	<fieldset><legend>Message</legend>
 	<textarea cols="80" rows="8" id="message" name="message"></textarea><br/>
-	<label><input type="radio" name="mess" value="Annonce" />Annonce</label>
-	<label><input type="radio" name="mess" value="Message" checked="checked" />Topic</label>
-	</fieldset>
-	<p>
+        <?php
+        $query=$db->prepare('SELECT membre_rang
+                FROM forum_membres WHERE membre_id=:id');
+                $query->bindValue(':id',$id,PDO::PARAM_INT);
+                $query->execute();
+                $data=$query->fetch();
+        if ($data['membre_rang'] >=3){
+        ?>     
+	<label><input type="radio" name="mess" value="Annonce" />Annonce</label>       
+        <?php
+        }
+        ?>
+	<label><input type="radio" name="mess" value="Message" checked="checked" />Topic</label><br/><br/>
 	<input type="submit" name="submit" value="Envoyer" />
-	<input type="reset" name = "Effacer" value = "Effacer" /></p>
+	<input type="reset" name = "Effacer" value = "Effacer" />
+	</fieldset>
 	</form>
 
 	<?php
 	break;
+        
+        case "edit":
+            $post = (int) $_GET['p'];
+            echo'<h1>Edition</h1>';
+
+            //On lance enfin notre requête
+
+            $query=$db->prepare('SELECT post_createur, post_texte, auth_modo FROM forum_post
+            LEFT JOIN forum_forum ON forum_post.post_forum_id = forum_forum.forum_id
+            WHERE post_id=:post');
+            $query->bindValue(':post',$post,PDO::PARAM_INT);
+            $query->execute();
+            $data=$query->fetch();
+
+            $text_edit = $data['post_texte']; //On récupère le message
+
+            //Ensuite on vérifie que le membre a le droit d'être ici (soit le créateur soit un modo/admin) 
+            if($data['post_createur'] != $id)
+            {
+                // Si cette condition n'est pas remplie ça va barder :o
+                erreur(ERR_AUTH_EDIT);
+            }
+            else //Sinon ça roule et on affiche la suite
+            {
+                //Le formulaire de postage
+                ?>
+                <form method="post" action="postok.php?action=edit&amp;p=<?php echo $post ?>" name="formulaire">
+                <fieldset><legend>Mise en forme</legend>
+                <input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
+                <input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
+                <input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)"/>
+                <input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
+                <br /><br />
+                <img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
+                <img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
+                <img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
+                <img src="img/cool.png" title="cool" alt="cool" onClick="javascript:smilies(' :frime: ');return(false)" />
+                <img src="img/langue.png" title="rire" alt="rire" onClick="javascript:smilies(' XD ');return(false)" />
+                <img src="img/huh.png" title="confus" alt="confus" onClick="javascript:smilies(' :s ');return(false)" />
+                <img src="img/choc.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
+                <img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
+                <img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
+                </fieldset>
+
+                <fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"><?php echo $text_edit ?>
+                </textarea><br/>
+                <br/><input type="submit" name="submit" value="Editer !" />
+                <input type="reset" name = "Effacer" value = "Effacer"/>
+                </fieldset>
+                </form>
+                <?php
+            }
+        break; //Fin de ce cas :o
+        
+        case "delete": 
+            $post = (int) $_GET['p'];
+            echo'<h1>Suppression</h1>';
+            $query=$db->prepare('SELECT post_createur, auth_modo
+            FROM forum_post
+            LEFT JOIN forum_forum ON forum_post.post_forum_id = forum_forum.forum_id
+            WHERE post_id= :post');
+            $query->bindValue(':post',$post,PDO::PARAM_INT);
+            $query->execute();
+            $data = $query->fetch();
+
+            if (!verif_auth($data['auth_modo']) && $data['post_createur'] != $id)
+            {
+                erreur(ERR_AUTH_DELETE); 
+            }
+            else
+            {
+                echo'<p>Êtes vous certains de vouloir supprimer ce post ?</p>';
+                echo'<p><a href="./postok.php?action=delete&amp;p='.$post.'">Oui</a> ou <a href="./index.php">Non</a></p>';
+            }
+            $query->CloseCursor();
+        break;
 		
 	
 

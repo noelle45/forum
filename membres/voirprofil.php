@@ -30,7 +30,7 @@ if(isset($_SESSION['pseudo'])){
                     
                     if($_SESSION['pseudo'] != $data['membre_pseudo'])
                     {
-					   echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp;  Profile de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'<br/>';
+					   echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp;  Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'<br/>';
                     }
                     else
                     {
@@ -39,7 +39,13 @@ if(isset($_SESSION['pseudo'])){
                     
 							 if($_SESSION['pseudo'] != $data['membre_pseudo']) 
 							 {
-							 echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
+                                 if($data['membre_avatar'] !=0){
+                                     echo'<p><div class="img_message_avatar"><img src="avatars/'.$data['membre_avatar'].'"alt="Ce membre n\'a pas d\'avatar" /></div></p>';
+                                 }
+                                 else
+                                 {
+                                      echo'<p><div class="img_message_avatar"><img src="avatars/compte100.png" alt="Ce membre n\'a pas d\'avatar" /></div></p>';
+                                 }
 							 }
 					
 							if($_SESSION['pseudo'] == $data['membre_pseudo']) 

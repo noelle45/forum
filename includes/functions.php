@@ -48,10 +48,9 @@ function Cryptage($MDP, $Clef){
 	}
 			
 	return $MDP ^ $Clef; // La fonction envoie le texte crypté
-			
 }
-
 ?>
+
 
 
 

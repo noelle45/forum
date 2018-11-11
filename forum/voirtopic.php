@@ -38,7 +38,7 @@ $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 $query->CloseCursor(); 
 
 $query=$db->prepare('SELECT post_id , post_createur , post_texte , post_time ,
-membre_id, membre_pseudo, membre_inscrit, membre_avatar, membre_localisation, membre_post, membre_signature
+membre_id, membre_pseudo, membre_inscrit, membre_avatar, membre_localisation, membre_post, membre_signature, membre_rang
 FROM forum_post
 LEFT JOIN forum_membres ON forum_membres.membre_id = forum_post.post_createur
 WHERE topic_id =:topic
@@ -80,7 +80,7 @@ else
 				Les modérateurs pourront aussi le faire, il faudra donc revenir sur
 				ce code un peu plus tard ! */     
    
-         if ($id == $data['post_createur'])
+         if ($id == $data['post_createur'] || $data['membre_rang']<=3)
          {
 				echo'<td id=p_'.$data['post_id'].'>Posté à '.date('H\hi \l\e d M y',$data['post_time']).'
 				<a href="poster.php?p='.$data['post_id'].'&amp;action=delete">
@@ -98,7 +98,7 @@ else
        
          //Détails sur le membre qui a posté
          echo'<tr><td>
-         <img src="../membres/avatars/'.$data['membre_avatar'].'" alt="" />
+         <img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Ce membre n\'a pas d\'avatar" height="60px" />
          <br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
          <br />Messages : '.$data['membre_post'].'<br />
          Localisation : '.stripslashes(htmlspecialchars($data['membre_localisation'])).'</td>';
@@ -113,10 +113,17 @@ else
 </table>
 <?php
 	
-		//On affiche l'image répondre
+$query=$db->prepare('SELECT membre_rang
+FROM forum_membres WHERE membre_id=:id');
+$query->bindValue(':id',$id,PDO::PARAM_INT);
+$query->execute();
+$data=$query->fetch();
+
+if($data["membre_rang"] > 1){
 echo '<h1>';
 echo'<br/><a href="poster.php?action=repondre&amp;t='.$topic.'"><img src="../img/icones/repondre.gif" alt="Répondre" title="Répondre à ce topic"/></a>&nbsp;&nbsp;<a href="poster.php?action=nouveautopic&amp;f='.$forum.'"><img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
 echo '</h1>';
+}
 	
         echo '<h1>Page : ';
         for ($i = 1 ; $i <= $nombreDePages ; $i++)
@@ -141,7 +148,52 @@ echo '</h1>';
         $query->CloseCursor();
 
 } //Fin du if qui vérifiait si le topic contenait au moins un message
-?>           
+$query=$db->prepare('SELECT membre_rang
+FROM forum_membres WHERE membre_id=:id');
+$query->bindValue(':id',$id,PDO::PARAM_INT);
+$query->execute();
+$data=$query->fetch();
+$query=$db->prepare('SELECT forum_id, forum_name FROM forum_forum WHERE forum_id <> :forum');
+$query->bindValue(':forum',$forum,PDO::PARAM_INT);
+$query->execute();
+
+if($data['membre_rang']>=3)
+{
+
+//$forum a été définie tout en haut de la page !
+echo'<p>Déplacer vers :</p>
+<form method="post" action=postok.php?action=deplacer&amp;t='.$topic.'>
+<select name="dest">';               
+while($data=$query->fetch())
+{
+     echo'<option value='.$data['forum_id'].' id='.$data['forum_id'].'>'.$data['forum_name'].'</option>';
+}
+$query->CloseCursor();
+echo'
+</select>
+<input type="hidden" name="from" value='.$forum.'>
+<input type="submit" name="submit" value="Envoyer" />
+</form>';
+
+$query = $db->prepare('SELECT topic_locked FROM forum_topic WHERE topic_id = :topic');
+$query->bindValue(':topic',$topic,PDO::PARAM_INT);
+$query->execute();
+$data=$query->fetch();
+
+if ($data['topic_locked'] == 1) // Topic verrouillé !
+{
+    echo'<a href="./postok.php?action=unlock&t='.$topic.'">
+    <img src="img/unlock.png" alt="deverrouiller" title="Déverrouiller ce sujet" /></a><br/>';
+}
+else //Sinon le topic est déverrouillé !
+{
+    echo'<a href="./postok.php?action=lock&amp;t='.$topic.'"><br/>
+    <img src="img/lock.png" alt="verrouiller" title="Verrouiller ce sujet" /></a>';
+}
+}
+$query->CloseCursor();
+?>
+       
 </div>
 </body>
 </html>

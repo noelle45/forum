@@ -1,4 +1,4 @@
 <?php
-  header('Location: messagerie.php');
+  header('Location: ../membres/accueil.php');
   exit();
 ?>

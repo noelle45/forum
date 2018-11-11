@@ -1,80 +1,6 @@
 body
 {
-	background-color: #907E8A;
-	margin-top: 220px;
-}
-
-.p_baniere
-{
-	margin-left: 25px;
-}
-
-.f_baniere
-{
-	margin-left: 100px;
-}
-
-.bg_banniere
-{
-	background-color: #ABB2B9;
-}
-
-.legend
-{
-	color: black;
-	font-size: 20px;
-}
-
-.include_fixed
-{
-	position: fixed;
-	top: 0;
-	height: 200px;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	background-color: #532F47;
-	padding-left: 50px;
-	color: white;
-}
-
-.include_fixed_2
-{
-	position: fixed;
-	top: 0;
-	height: 150px;
-	bottom: 0;
-	right: 0;
-	width: 100%;
-	background-color: #532F47;
-	padding-left: 50px;
-	color: white;
-}
-
-.p_message
-{
-	text-align: center;
-	font-size : 20px;
-}
-
-#banniere
-{
-width: 600px;
-height: 150px;
-background-position:  center;
-margin-bottom: 20px; 
-background-image: url('images/banniere.jpg');
-}
-
-#corps_forum
-{
-border: 1px solid black;
-width: 90%;
-margin-top: 50px;
-margin-left: 5%;
-margin-bottom: 10Opx;
-padding: 5px;
-background-color: rgb(237,224,213);
+	background-color: #EAECEE;
 }
 
 #footer
@@ -139,10 +65,19 @@ table
 
 a, a:hover, a:focus, a:active
 {
-  color: white; 
+  color: #524E4F; 
 }
 
-.field_constants { width : 20%; color: gray;}
+.p_message
+{
+	text-align: center;
+	font-size : 20px;
+}
+
+.parag_centre
+{
+    text-align: center;
+}
 
 fieldset
 {
@@ -150,11 +85,9 @@ fieldset
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
-	background-image: ;
-	background-repeat: no-repeat;
-	background-position: top;
-	background-position: right;
 	background-color:white;
+	margin-left:25%;
+	margin-top: ;
 }
 
 h1
@@ -165,25 +98,7 @@ h1
 	margin-bottom: 50px;
 }
 
-h2
-{margin-left: 20px;}
-
-.parag_centre
+.p_index_connecte
 {
 	text-align: center;
-}
-
-.h1_accueil
-{
-	margin-top: -150px;
-}
-
-.img_message_prive, .img_message_avatar, .img_modif_profil
-{
-	margin-left: 50px;
-}
-
-.text_modif_profil
-{
-	margin-left: 20px;
 }
