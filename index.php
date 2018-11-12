@@ -65,9 +65,10 @@ else
 	    $_SESSION['id'] = $data['membre_id'];
         $_SESSION['avatar'] = $data['membre_avatar'];
 	    $message = '<p>Bienvenue '.$data['membre_pseudo'].', 
-			vous êtes maintenant connecté!</p>
-			<p>Cliquez <a href="membres/accueil.php">ici</a> 
-			pour entrer sur le forum</p>';  
+			vous êtes maintenant connecté!</p>';
+		?>
+        <meta http-equiv="refresh" content="2 ; url=membres/accueil.php">
+        <?php
 	}
 	else // Acces pas OK !
 	{

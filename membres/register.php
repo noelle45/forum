@@ -26,7 +26,7 @@ if (empty($_POST['pseudo'])) // Si la variable est vide, on peut considérer qu'
 	</fieldset><br/>
 	
 	<fieldset><legend>Contacts</legend><br/>
-	<label class="email" for="email">* Votre adresse Mail </label><br/><input type="text" name="email" id="email" /><br /><br/>
+	<label class="email" for="email">* Votre adresse Mail </label><br/><br/><input type="text" name="email" id="email" /><br /><br/>
 	
 	<label for="msn">Votre adresse MSN </label><br/><input type="text" name="msn" id="msn" /><br /><br/>
 	
@@ -38,9 +38,12 @@ if (empty($_POST['pseudo'])) // Si la variable est vide, on peut considérer qu'
 	</fieldset><br/>
 	
 	<fieldset><legend>Profil sur le forum</legend><br/>
-	<label for="avatar">Choisissez votre avatar :</label><br/><input type="file" name="avatar" id="avatar" /><br/>(Taille max : 30Ko)<br />
+	<label for="avatar">Choisissez votre avatar :</label><br/><input value="INSERT:avatars/compte100.png" type="file" name="avatar" id="avatar" /><br/>(Taille max : 30Ko)<br />';
+    
+    echo '<img src="avatars/compte100.png"/>';
+    
 	
-	<label for="signature">Signature </label><br/><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea><br/><br/>
+	echo '<label for="signature">Signature </label><br/><textarea cols="40" rows="4" name="signature" id="signature">La signature est limitée à 200 caractères</textarea><br/><br/>
 	
 	<p>Les champs précédés d\'un * sont obligatoires</p>
 	
@@ -185,8 +188,7 @@ else
         echo'<p class="p_baniere">Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</br/>
 			Cliquez <a href="accueil.php">ici</a> pour entrer sur le forum</p>';
 	
-        //La ligne suivante sera commentée plus bas
-	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):''; 
+	$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):'';
    
         $query=$db->prepare('INSERT INTO forum_membres 
         (membre_pseudo, membre_mdp2, membre_email,             

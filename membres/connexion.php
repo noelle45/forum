@@ -5,9 +5,7 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 
 if ($id!=0) erreur('');
-if (!isset($_POST['pseudo']))
 
-{
     echo '<fieldset class="field_constants"><legend>Connexion</legend>
 	
 	      <h1> Bonjour et bienvenu sur le forum </h1>
@@ -29,9 +27,6 @@ if (!isset($_POST['pseudo']))
     echo '</form>
 	<a href="register.php">Pas encore inscrit ?</a><br/>
     </fieldset>';
-    
-
-}
 
 //On reprend la suite du code
 else
