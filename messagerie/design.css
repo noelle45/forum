@@ -98,6 +98,12 @@ a, a:hover, a:focus, a:active
 	font-size : 20px;
 }
 
+.p_menu
+{
+    text-align: right;
+    margin-right: 20px;
+}
+
 .field_constants 
 { 
 	width : 400px; text-align: left;

@@ -13,7 +13,9 @@ include("../includes/debut.php");
                 $query->bindValue(':id',$id,PDO::PARAM_INT);
                 $query->execute();
                 $data=$query->fetch();
-        include("../includes/baniere-membres.php");
+
+ include("../includes/baniere-membres.php");
+
 if (isset($_SESSION['pseudo']))
 {
         echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php"> Accueil forum</a><br/><br/>';

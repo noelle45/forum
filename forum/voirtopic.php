@@ -97,9 +97,14 @@ else
          }
        
          //Détails sur le membre qui a posté
-         echo'<tr><td>
-         <img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Ce membre n\'a pas d\'avatar" height="60px" />
-         <br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
+         echo'<tr><td>';
+        
+            if(!empty($data['membre_avatar'])){
+                echo '<img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Avatar" />';}
+            else{
+                echo '<img src="../membres/avatars/compte100.png" alt="Avatar" />';}
+         
+         echo '<br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
          <br />Messages : '.$data['membre_post'].'<br />
          Localisation : '.stripslashes(htmlspecialchars($data['membre_localisation'])).'</td>';
                

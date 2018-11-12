@@ -6,6 +6,7 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 include("../includes/bbcode.php");
 include("../includes/baniere-forum.php");
+
 ?>
 
 <?php

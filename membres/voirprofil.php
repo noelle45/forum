@@ -93,8 +93,7 @@ if(isset($_SESSION['pseudo'])){
 
 
 
-			//Si on choisit de modifier son profil
-				 case "modifier":
+			case "modifier":
                     include("../includes/baniere-membres.php");
 					echo'<p>&nbsp; &nbsp;<i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php">Accueil forum</a>  &nbsp; &nbsp; 
 					<a href="./voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter"> Profil </a>  &nbsp; &nbsp; Modifier</p>';
@@ -106,7 +105,7 @@ if(isset($_SESSION['pseudo'])){
 					  //On prend les infos du membre
 					  $query=$db->prepare('SELECT membre_pseudo, membre_email,
 					  membre_siteweb, membre_signature, membre_msn, membre_localisation,
-					  membre_avatar
+					  membre_avatar, membre_mdp2
 					  FROM forum_membres WHERE membre_id=:id');
 					  $query->bindValue(':id',$id,PDO::PARAM_INT);
 					  $query->execute();
@@ -118,16 +117,21 @@ if(isset($_SESSION['pseudo'])){
 
 					  echo '<form method="post" action="voirprofil.php?action=modifier" enctype="multipart/form-data">
 					  <fieldset><legend>Identifiants</legend><br/>	
-					  Pseudo : <strong>'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</strong><br /><br/>       
+                      
+					  Pseudo : <strong>'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</strong><br /><br/>
+                      
 					  <label for="password">Nouveau mot de Passe :</label><br/>
-					  <input type="password" name="password" id="password" /><br /><br/>
-					  <label for="confirm">Confirmer le mot de passe :</label><br/></br>
+					  <input type="password" name="password" id="password" 
+                      value="'.stripslashes($data['membre_mdp2']).'" /><br /><br/>
+                      
+					  <label for="confirm" style="color:red" >Confirmez votre mot de passe :</label><br/></br>
 					  <input type="password" name="confirm" id="confirm"  />
 					  </fieldset><br/>
 
 					  <fieldset><legend>Contacts</legend><br/>
 					  <label for="email">Votre adresse E_Mail :</label><br/>
 					  <input type="text" name="email" id="email"
+                      
 					  value="'.stripslashes($data['membre_email']).'" /><br /><br/>
 
 					  <label for="msn">Votre adresse MSN :</label><br/>
@@ -158,10 +162,11 @@ if(isset($_SESSION['pseudo'])){
 					  <br /><br />
 					  <label for="signature">Signature :</label><br/>
 					  <textarea cols="40" rows="4" name="signature" id="signature">
-					  '.stripslashes($data['membre_signature']).'</textarea><br/>     
+					  '.stripslashes($data['membre_signature']).'</textarea><br/><br/>
+                      <input type="submit" value="Enregistrer les modifications" />
 					  </fieldset>
 					  <p>
-					  <input type="submit" value="Enregistrer les modifications" />
+					  
 					  <input type="hidden" id="sent" name="sent" value="1" />
 					  </p></form>';
 					  $query->CloseCursor();   

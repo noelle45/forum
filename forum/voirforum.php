@@ -4,6 +4,7 @@ $titre="Voir un forum";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
 include("../includes/baniere-forum.php");
+
 //On récupère la valeur de f
 $forum = (int) $_GET['f'];
 

@@ -17,3 +17,7 @@
     }
 ?>
 </div>
+<?php
+ if(isset($_SESSION['pseudo'])){
+include("../includes/menu_memb.php");}
+?>

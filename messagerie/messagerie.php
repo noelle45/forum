@@ -6,6 +6,7 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 include("../includes/bbcode.php");
 include("../includes/baniere-messagerie.php");
+
 $action = (isset($_GET['action']))?htmlspecialchars($_GET['action']):'';
 if(isset($_SESSION['pseudo']))
 {

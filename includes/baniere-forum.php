@@ -17,3 +17,6 @@
     }
 ?>
 </div>
+<?php
+include("../includes/menu_forum.php");
+?>
