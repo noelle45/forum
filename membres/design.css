@@ -66,6 +66,16 @@ th
     box-shadow: 1px 2px 18px #A5A4A4;
 }
 
+.roundedImageIcon
+{
+    overflow:hidden;
+    -webkit-border-radius:15px;
+    -moz-border-radius:15px;
+    border-radius:15px;
+    border: white 1px solid;
+    box-shadow: 1px 2px 18px #A5A4A4;
+}
+
 td
 {
   color : #9E9698;
@@ -141,7 +151,6 @@ h1
 	text-align: center;
 	margin-top: ;
 	font-size: 20px;
-	margin-bottom: 50px;
 }
 
 .p_index_connecte

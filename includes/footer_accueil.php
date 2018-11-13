@@ -1,6 +1,6 @@
 <div class="footer">
 
-<p style="margin-top:45px">&nbsp; &nbsp; 
+<p style="margin-top:30px">&nbsp; &nbsp; 
 <i>Qui est en ligne ?</i>
 </p>
     
@@ -25,8 +25,8 @@ $count_visiteurs=$db->query('SELECT COUNT(*) AS nbr_visiteurs FROM forum_whosonl
 $query->CloseCursor();
 
 //Décompte des membres
-$texte_a_afficher = "<br />Liste des personnes en ligne : ";
-$time_max = time() - (60 * 5);
+$texte_a_afficher = "<br /> &nbsp; &nbsp; Liste des personnes en ligne : ";
+$time_max = time() - (60 * 10);
 $query=$db->prepare('SELECT membre_id, membre_pseudo 
 FROM forum_whosonline
 LEFT JOIN forum_membres ON online_id = membre_id
@@ -43,10 +43,41 @@ while ($data = $query->fetch())
 
 $texte_a_afficher = substr($texte_a_afficher, 0, -1);
 $count_online = $count_visiteurs + $count_membres;
-echo '<p>Il y a '.$count_online.' connectés : '.$count_membres.' membres et '.$count_visiteurs.' invités';
+echo '<p> &nbsp; &nbsp; Il y a '.$count_online.' connectés : '.$count_membres.' membres et '.$count_visiteurs.' invités';
 echo $texte_a_afficher.'</p><br/>';
-echo '<br/><p> <a href="../admin/accueil-admin.php> Administration du forum </a>';
+echo '<br/><p> &nbsp; &nbsp;  <a href="../admin/accueil-admin.php> Administration du forum </a>';
 $query->CloseCursor();
 
 ?>
+<?php
+//Initialisation de la variable
+$count_online = 0;
+
+//Décompte des visiteurs
+$count_visiteurs=$db->query('SELECT COUNT(*) AS nbr_visiteurs FROM forum_whosonline WHERE online_id = 0')->fetchColumn();
+$query->CloseCursor();
+
+//Décompte des membres
+$texte_a_afficher = "<br />Liste des personnes en ligne : ";
+$time_max = time() - (60 * 5);
+$query=$db->prepare('SELECT membre_id, membre_pseudo 
+FROM forum_whosonline
+LEFT JOIN forum_membres ON online_id = membre_id
+WHERE online_time > :timemax AND online_id <> 0');
+$query->bindValue(':timemax',$time_max, PDO::PARAM_INT);
+$query->execute();
+$count_membres=0;
+while ($data = $query->fetch())
+{
+	$count_membres ++;
+	$texte_a_afficher .= '<a href="./voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">
+	'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</a> ,';
+}
+
+$texte_a_afficher = substr($texte_a_afficher, 0, -1);
+$count_online = $count_visiteurs + $count_membres;
+
+$query->CloseCursor();
+?>
+
 </div>

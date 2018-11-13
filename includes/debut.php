@@ -108,6 +108,26 @@ $lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
 $id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
 $pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
 
+//Création des variables
+$ip = ip2long($_SERVER['REMOTE_ADDR']);
+
+//Requête
+$query=$db->prepare('INSERT INTO forum_whosonline VALUES(:id, :time,:ip)
+ON DUPLICATE KEY UPDATE
+online_time = :time , online_id = :id');
+$query->bindValue(':id',$id,PDO::PARAM_INT);
+$query->bindValue(':time',time(), PDO::PARAM_INT);
+$query->bindValue(':ip', $ip, PDO::PARAM_INT);
+$query->execute();
+$query->CloseCursor();
+
+$time_max = time() - (60 * 5);
+$query=$db->prepare('DELETE FROM forum_whosonline WHERE online_time < :timemax');
+$query->bindValue(':timemax',$time_max, PDO::PARAM_INT);
+$query->execute();
+$query->CloseCursor();
+
+
 include("functions.php");
 
 ?>

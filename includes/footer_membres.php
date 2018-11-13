@@ -1,6 +1,6 @@
 <div class="footer">
 
-<p style="margin-top:75px">&nbsp; &nbsp; 
+<p style="margin-top:55px">&nbsp; &nbsp; 
 <i>Qui est en ligne ?</i>
 </p>
     
@@ -13,7 +13,7 @@ $data = $query->fetch();
 $derniermembre = stripslashes(htmlspecialchars($data['membre_pseudo']));
 
 //echo'<p> &nbsp; &nbsp; Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
-echo'<p>&nbsp; &nbsp; Le forum comptent <strong>'.$TotalDesMembres.'</strong> membres.<br />';
+echo'<p> &nbsp; &nbsp; Le forum comptent <strong>'.$TotalDesMembres.'</strong> membres.<br />';
 echo'&nbsp; &nbsp; Le dernier membre inscrit est <a href="../membres/voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">'.$derniermembre.'</a>.</p>';
 $query->CloseCursor();
 
@@ -24,8 +24,8 @@ $count_visiteurs=$db->query('SELECT COUNT(*) AS nbr_visiteurs FROM forum_whosonl
 $query->CloseCursor();
 
 //Décompte des membres
-$texte_a_afficher = "<br />Liste des personnes en ligne : ";
-$time_max = time() - (60 * 5);
+$texte_a_afficher = "<br /> &nbsp; &nbsp; Liste des personnes en ligne : ";
+$time_max = time() - (60 * 10);
 $query=$db->prepare('SELECT membre_id, membre_pseudo 
 FROM forum_whosonline
 LEFT JOIN forum_membres ON online_id = membre_id
@@ -42,9 +42,9 @@ while ($data = $query->fetch())
 
 $texte_a_afficher = substr($texte_a_afficher, 0, -1);
 $count_online = $count_visiteurs + $count_membres;
-echo '<p>Il y a '.$count_online.' connectés : '.$count_membres.' membres et '.$count_visiteurs.' invités';
+echo '<p> &nbsp; &nbsp; Il y a '.$count_online.' connectés : '.$count_membres.' membres et '.$count_visiteurs.' invités';
 echo $texte_a_afficher.'</p><br/>';
-echo '<br/><p> <a href="../admin/accueil-admin.php> Administration du forum </a>';
+echo '<br/><p> &nbsp; &nbsp; <a href="../admin/accueil-admin.php> Administration du forum </a>';
 $query->CloseCursor();
 
 ?>
