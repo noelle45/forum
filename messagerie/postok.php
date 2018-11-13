@@ -33,10 +33,8 @@ switch($action)
     $query->CloseCursor(); 
 
     echo'<p>Votre message a bien été envoyé!<br />
-    <br />Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil du   
-    forum<br />
-    <br />Cliquez <a href="messagerie.php">ici</a> pour retourner
-    à la messagerie</p>';
+    <br />Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil <br />
+    <br />Cliquez <a href="messagerie.php">ici</a> pour retourner à votre messagerie</p>';
 
     break;
 		

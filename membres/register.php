@@ -5,7 +5,9 @@ include("../includes/identifiants.php");
 include("../includes/debut.php");
 
 
-
+?>
+	<div style="text-align: center">
+<?php
 echo '<p>&nbsp; &nbsp;<i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="accueil.php">Index du forum</a>  &nbsp; &nbsp;  Enregistrement';
 
 ?>
@@ -236,6 +238,9 @@ else
 
 }
 
+?> </div> <?php
+    
+include("../includes/footer_membres.php");
 ?>
 </div>
 </body>

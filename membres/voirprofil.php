@@ -111,13 +111,12 @@ if(isset($_SESSION['pseudo'])){
 					  $query->execute();
 					  $data=$query->fetch();
 
-					echo'<p>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</p>';
-					echo'<p>Modification du profil</p>';
+					echo'<p>Modification du profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</p>';
 
 
 					  echo '<form method="post" action="voirprofil.php?action=modifier" enctype="multipart/form-data">
-					  <fieldset><legend>Identifiants</legend><br/>	
-                      
+					  <fieldset><br/>	
+                      				<p style="color:white">Mes identifiants</p><br/>
 					  Pseudo : <strong>'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</strong><br /><br/>
                       
 					  <label for="password">Nouveau mot de Passe :</label><br/>
@@ -128,7 +127,8 @@ if(isset($_SESSION['pseudo'])){
 					  <input type="password" name="confirm" id="confirm"  />
 					  </fieldset><br/>
 
-					  <fieldset><legend>Contacts</legend><br/>
+					  <fieldset><br/>
+						<p style="color:white">Mes coordonnées</p><br/>
 					  <label for="email">Votre adresse E_Mail :</label><br/>
 					  <input type="text" name="email" id="email"
                       
@@ -143,13 +143,15 @@ if(isset($_SESSION['pseudo'])){
 					  value="'.stripslashes($data['membre_siteweb']).'" /><br /><br/>
 					  </fieldset><br/>
 
-					  <fieldset><legend>Informations supplémentaires</legend><br/>
+					  <fieldset><br/>
+						<p style="color:white">Informations complémentaires</p><br/>
 					  <label for="localisation">Localisation :</label><br/>
 					  <input type="text" name="localisation" id="localisation"
 					  value="'.stripslashes($data['membre_localisation']).'" /><br /><br/>
 					  </fieldset><br/>
 
-					  <fieldset><legend>Mon avatar - Je souhaite : </legend><br/>
+					  <fieldset><br/>
+						<p style="color:white">Mon avatar - Je souhaite : </p><br/>
 					  <label for="avatar">Changer mon avatar :</label><br/>
 					  <input type="file" name="avatar" id="avatar" />
 					  <br/>(Taille max : 30 ko)<br /><br /> Ou<br/><br/>
@@ -194,7 +196,6 @@ if(isset($_SESSION['pseudo'])){
 				 $localisation = $_POST['localisation'];
 				 $pass = ($_POST['password']);
 				 $confirm = ($_POST['confirm']);
-				 $avatar = $_POST['avatar'];
 
 
 				 //Vérification du mdp
@@ -369,6 +370,7 @@ else
 {echo  'Vous ne pouvez pas accéder à cette page si vous n\'êtes pas connecté(e)<br/><br/>';
  echo '<a href="accueil.php"> Aller à l\'accueil du forum</a>'; 
 }
+include("../includes/footer_membres.php");
 ?>
 </div>
 </body>

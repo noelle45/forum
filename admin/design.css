@@ -111,12 +111,14 @@ a, a:hover, a:focus, a:active
     margin-left:85px;
 }
 
-
 .p_menu
 {
     text-align: right;
     margin-right: 20px;
 }
+
+.p_footer
+{padding-top:45px;padding_left:50px;}
 
 .parag_centre
 {
@@ -125,24 +127,24 @@ a, a:hover, a:focus, a:active
 
 fieldset
 {
+	color: #524E4F;
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
 	background-color:#9E9698;
 	margin-left:25%;
-	text-align:left;
-color:black;
 }
-
-.p_fieldset
-{color:black;}
 
 h1
 {
 	text-align: center;
-	margin-top: ;
 	font-size: 20px;
-	margin-bottom: 50px;
+}
+
+h2
+{
+	text-align: center;
+	font-size: 15px;
 }
 
 .p_index_connecte

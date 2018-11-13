@@ -1,15 +1,16 @@
 <div class="include_fixed">
-
 <?php
     
     if(isset($_SESSION['pseudo'])){
-        echo '<p class="p_baniere"> <a href="../membres/voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter"> Mon compte '
-        .htmlspecialchars($_SESSION['pseudo']).'</a>  &nbsp; &nbsp; &nbsp;  <a href="../membres/deconnexion.php" title="vous avez terminé votre visite ?"> Me deconnecter</a><p>';
+        echo '<p class="p_baniere_petit_pseudo"> <a href="../membres/voirprofil.php?m='.$_SESSION['id'].'&amp;action=consulter">'
+        .htmlspecialchars($_SESSION['pseudo']).'</p>';
         
         if(!empty($_SESSION['avatar'])){
-            echo '<img src="../membres/avatars/'.$_SESSION['avatar'].'" alt="Avatar" />';}
-        else{
-           echo '<img src="../membres/avatars/compte100.png" alt="Avatar" />';}
+        echo '<p class="p_baniere_petit"><img class="roundedImage" src="../membres/avatars/'.$_SESSION['avatar'].'" alt="Avatar" />';}
+	else{
+	echo '<p class="p_baniere_petit"><img class="roundedImage" src="../membres/avatars/compte100.png" alt="Avatar" />';}
+        
+        echo '<br/><p class="p_baniere_petit"><a href="../membres/deconnexion.php" title="vous avez terminé votre visite ?"> Me deconnecter</a></p>';
        }
     else{
         echo '<h1>Bonjour et Bienvenue !<br/> vous n\'êtes pas connecté(e)</h1>

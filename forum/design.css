@@ -1,17 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+p, h1,h2,h3
+{font-family: 'Quicksand', sans-serif;color: #9E9698}
+
 body
 {
-	background-color: #EAECEE;
+	background-color:#690828 ;
 }
 
-#footer
+.include_fixed
 {
-border: 1px solid black;
-width: 90%;
-margin-top: 50px;
-margin-left: 5%;
-margin-bottom: 10Opx;
+background-image: url(../img/ban.png);
+width: 99%;
 padding: 5px;
-background-color: rgb(237,224,213);
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.footer
+{
+text-align:left;
+width: 99%;
+margin-top: 100px;
+height:200px;
+padding: 5px;
+background-image: url(../img/footer.png);
+background-repeat: no-repeat;
+background-size: cover;
 }
 
 .ico {width:2%}
@@ -36,22 +50,43 @@ th
   padding-left : 25px;
   padding-right : 25px;
   height : 40px;
-  color:#524E50;
-  background-color : #9E9698;
+  color: #9E9698;
+  background-color : #524E4F;
+}
+
+.roundedImage
+{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:100px;
+    height:100px;
+    border: white 1px solid;
+    box-shadow: 1px 2px 18px #A5A4A4;
 }
 
 td
 {
   color : #524E4F;
-  font-size: 15px;
+  font-size: 16px;
   padding-left : 25px;	
   padding-right:25px;
   padding-bottom : 8px;
   padding-top : 8px;
-  background-color: #CDC2C4;
+  background-color: white;
   vertical-align:top;
   text-align : left;
 }
+
+.td_titre
+{
+  background-color: #918E8E;
+  color:white;
+}
+
+.td_titre a
+{color:white;}
 
 table
 {
@@ -65,13 +100,25 @@ table
 
 a, a:hover, a:focus, a:active
 {
-  color: #524E4F; 
+  color:#9E9698; 
 }
 
 .p_message
 {
 	text-align: center;
 	font-size : 20px;
+}
+
+.p_baniere_petit
+{
+    font-size: 15px;
+    margin-left:45px;
+}
+
+.p_baniere_petit_pseudo
+{
+    font-size: 15px;
+    margin-left:85px;
 }
 
 .p_menu
@@ -87,13 +134,12 @@ a, a:hover, a:focus, a:active
 
 fieldset
 {
-	color:gray;
+	color: #524E4F;
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
-	background-color:white;
+	background-color:#9E9698;
 	margin-left:25%;
-	margin-top: ;
 }
 
 h1

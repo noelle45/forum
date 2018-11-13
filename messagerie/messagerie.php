@@ -7,15 +7,19 @@ include("../includes/debut.php");
 include("../includes/bbcode.php");
 include("../includes/baniere-messagerie.php");
 
+?>
+	<div style="text-align: center">
+<?php
+
 $action = (isset($_GET['action']))?htmlspecialchars($_GET['action']):'';
 if(isset($_SESSION['pseudo']))
 {
         switch($action) //On switch sur $action
         {
             case "consulter": //Si on veut lire un message
-                 echo'<p>  &nbsp; &nbsp;<i>Vous êtes ici</i> :   &nbsp; &nbsp; <a href="../membres/accueil">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;Consulter un message</p>';
+                 echo'<p>  &nbsp; &nbsp;<i>Vous êtes ici</i> :   &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;Consulter un message</p>';
                  $id_mess = (int) $_GET['id']; //On récupère la valeur de l'id
-//La requête nous permet d'obtenir les infos sur ce message :
+                //La requête nous permet d'obtenir les infos sur ce message :
                  $query = $db->prepare('SELECT  mp_expediteur, mp_receveur, mp_titre,               
                  mp_time, mp_text, mp_lu, membre_id, membre_pseudo, membre_avatar,
                  membre_localisation, membre_inscrit, membre_post, membre_signature
@@ -45,16 +49,22 @@ if(isset($_SESSION['pseudo']))
                      </tr>
                  </table>
 <?php
-                 echo'<p><img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Ce membre n\'a pas d\'avatar" />
-                 <br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
-                 <br />Messages : '.$data['membre_post'].'
+                if(!empty($data['membre_avatar'])){
+                echo '<img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Avatar" />';}
+                else{
+                echo '<img src="../membres/avatars/compte100.png" alt="Avatar" />';}
+                
+                 echo '<br /><p>Membre inscrit depuis le '.date('d/m/Y',$data['membre_inscrit']).'
+                 <br />Messages posté sur le forum : '.$data['membre_post'].'
                  <br />Localisation : '.stripslashes(htmlspecialchars($data['membre_localisation'])).'</p>
                  </td><td>';
+                ?> <fieldset><?php
                  echo code(nl2br(stripslashes(htmlspecialchars($data['mp_text'])))).'
-                 <hr />'.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'
-                 <br/><br/>';
+                 <hr /><i>Signature : '.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'
+                 </i><br/><br/>';
+                ?> </fieldset> <?php
                   //bouton de réponse
-                 echo '<a href="messagerie.php?action=repondre&amp;dest='.$data['mp_expediteur'].'"><img src="img/repondre.gif" alt="Répondre" title="Répondre à ce message"></a>
+                 echo '<br/><a href="messagerie.php?action=repondre&amp;dest='.$data['mp_expediteur'].'"><img src="img/repondre.gif" alt="Répondre" title="Répondre à ce message"></a>
                  </table>
                  </td></tr><br/><br/>';
                       if ($data['mp_lu'] == 0)
@@ -68,12 +78,12 @@ if(isset($_SESSION['pseudo']))
                  }
                 
         break;
-                
+                echo'<p>  &nbsp; &nbsp;<i>Vous êtes ici</i> :   &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;Consulter un message</p>';
                 case "nouveau": 
-                echo'<p>  &nbsp; &nbsp;  <i>Vous êtes ici</i> :   &nbsp; &nbsp;   <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;  Ecrire un message</p>';
-                ?>
+                echo'<p>  &nbsp; &nbsp;  <i>Vous êtes ici</i> :   &nbsp; &nbsp;   <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;  Nouveau message</p>';
+                ?><fieldset>
                 <form method="post" action="postok.php?action=nouveaump" name="formulaire">
-                <p><br/>
+                <p class="p_fieldset"><br/>
                 <label for="to">Envoyer à : </label><br/>
                 <input type="text" size="30" id="to" name="to" />
                 <br /><br/>
@@ -84,7 +94,7 @@ if(isset($_SESSION['pseudo']))
                 <input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
                 <input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)" />
                 <input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
-                <br /><br />
+                 &nbsp; &nbsp; 
                 <img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
                 <img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
                 <img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
@@ -100,22 +110,25 @@ if(isset($_SESSION['pseudo']))
                 <input type="submit" name="submit" value="Envoyer" />
                 <input type="reset" name="Effacer" value="Effacer" /></p>
                 </form>
+		</fieldset>
             <?php   
         break;
                 
                 case "repondre": 
-                echo '<h1> Répondre </h1>';
+echo'<p>  &nbsp; &nbsp;<i>Vous êtes ici</i> :   &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  <a href="messagerie.php">Ma messagerie</a>  &nbsp; &nbsp;Répondre</p>';
+                
                  $dest = (int) $_GET['dest'];
-           ?>
+           ?><br/><p>Répondre</p>
+<fieldset>
            <form method="post" action="postok.php?action=repondremp&amp;dest=<?php echo $dest ?>" name="formulaire">
-           <p><br/>
+           <p style="color:black"><br/>
            <label for="titre">Titre : </label><br /><input type="text" size="30" id="titre" name="titre" />
            <br /><br />
            <input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
            <input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
            <input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)" />
            <input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
-           <br /><br />
+            &nbsp; &nbsp; 
            <img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
                 <img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
                 <img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
@@ -126,12 +139,13 @@ if(isset($_SESSION['pseudo']))
                 <img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
                 <img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
 
-           <br /><br />
+           <p style="color:black">Message : 
            <textarea cols="80" rows="8" id="message" name="message"></textarea>
            <br />
            <input type="submit" name="submit" value="Envoyer" />
            <input type="reset" name="Effacer" value="Effacer"/>
            </p></form>
+</fieldset>
            <?php
         break;
                 
@@ -224,6 +238,7 @@ if(isset($_SESSION['pseudo']))
     {
         echo '<br/><p class="p_message"> Vous ne pouvez pas accéder à cette page';
 }
+        include("../includes/footer_membres.php")
 ?>
             
             

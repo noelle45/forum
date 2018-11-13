@@ -1,20 +1,25 @@
 <?php
-//Cette fonction doit être appelée avant tout code html
+
 session_start();
-//On donne ensuite un titre à la page, puis on appelle notre fichier debut.php
-$titre = "Index du forum";
+
+$titre = "Forum girly";
 include("../includes/identifiants.php");
 include("../includes/debut.php");
+include("../includes/constants.php");
         // infos du membre
                 $query=$db->prepare('SELECT membre_pseudo, membre_email,
                 membre_siteweb, membre_signature, membre_msn, membre_localisation,
-                membre_avatar
+                membre_avatar, membre_rang
                 FROM forum_membres WHERE membre_id=:id');
                 $query->bindValue(':id',$id,PDO::PARAM_INT);
                 $query->execute();
                 $data=$query->fetch();
 
- include("../includes/baniere-membres.php");
+ 
+include("../includes/baniere-membres.php");
+?>
+	<div style="text-align: center">
+<?php
 
 if (isset($_SESSION['pseudo']))
 {
@@ -36,7 +41,8 @@ if (isset($_SESSION['pseudo']))
         $query->execute();
         ?>
 
-        <table>
+	
+        <table class="table_shadow" style="background-color:white;width:80%;box-shadow:1px 2px 18px #A5A4A4;">
         <?php
         //Début de la boucle
         while($data = $query->fetch())
@@ -73,10 +79,10 @@ if (isset($_SESSION['pseudo']))
                  $nbr_post = $data['topic_post'] +1;
              $page = ceil($nbr_post / $nombreDeMessagesParPage);
                  echo'<td class="derniermessage">
-                 '.date('H\hi \l\e d/M/Y',$data['post_time']).'<br />
-                 <a href="voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].'  </a>
-                 <a href="../forum/voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">
-                 <img src="../img/icones/fleche_suivante_petit.png" alt="go" height="40px"/></a></td></tr>';
+                 '.date('H\hi \l\e d/M/Y',$data['post_time']).' <a href="../forum/voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">
+                 <img src="../img/icones/fleche_suivante_petit.png" alt="go" height="40px"/><br/>
+                 Posté par : <a href="voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].'</a>
+                 </a></td></tr>';
              }
              else
              {
@@ -87,8 +93,10 @@ if (isset($_SESSION['pseudo']))
              //On ferme notre boucle et nos balises
         } //fin de la boucle
         $query->CloseCursor();
-        echo '</table></div>';
+            ?></table>
+		</div>
+            </div> <?php
     
-include("../includes/footer_membres.php");
+include("../includes/footer_accueil.php");
 }
 ?>

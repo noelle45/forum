@@ -16,15 +16,15 @@ if ($id!=0) erreur('');
 if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 {
     
-    echo '<fieldset class="field_constants"><legend>Connexion</legend>
+    echo '<fieldset>
 	
-	     <h1> Bonjour et bienvenu sur le forum </h1>
-		  <p> Pour accéder à cette section, merci de vous identifier</p>
-		  <p><a href="membres/register.php"> Pas encore inscrit ? </a></p><br/>
+	     <h1 style="color:black;text-align:left"> Bonjour et bienvenu sur le forum </h1>
+		  <p style="color:black;text-align:left"> Pour accéder à cette section, merci de vous identifier</p>
+		  <p style="color:black;text-align:left"><a href="membres/register.php"> Pas encore inscrit ? </a></p><br/>
 		  ';
     
 	echo '<form method="post" action="index.php">
-	<p>
+	<p style="color:black;text-align:left">
 	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br /><br/>
 	<label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
 	</p>
@@ -35,7 +35,7 @@ if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 
 <?php
     echo '</form>
-	<a href="membres/register.php">Pas encore inscrit ?</a><br/>
+	<p style="color:black;text-align:left"><a href="membres/register.php">Pas encore inscrit ?</a><br/>
     </fieldset>';
     
 
@@ -49,7 +49,7 @@ else
     {
         $message = '<p>une erreur s\'est produite pendant votre identification.
 	Vous devez remplir tous les champs</p>
-	<p>Cliquez <a href="connexion.php">ici</a> pour revenir</p>';
+	<p>Cliquez <a href="index.php">ici</a> pour revenir</p>';
     }
     else //On check le mot de passe
     {
@@ -72,7 +72,7 @@ else
 	}
 	else // Acces pas OK !
 	{
-	    $message = '<p>Une erreur s\'est produite pendant votre identification.<br /> Le mot de passe ou le pseudo entré n\'est pas correcte.</p><p>Cliquez <a href="connexion.php">ici</a> pour revenir à la page précédente</p>';
+	    $message = '<p>Une erreur s\'est produite pendant votre identification.<br /> Le mot de passe ou le pseudo entré n\'est pas correcte.</p><p>Cliquez <a href="index.php">ici</a> pour revenir à la page précédente</p>';
 	}
     $query->CloseCursor();
     }

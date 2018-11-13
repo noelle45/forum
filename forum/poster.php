@@ -7,17 +7,10 @@ include("../includes/debut.php");
 include("../includes/bbcode.php");
 include("../includes/baniere-forum.php");
 
-?>
+?> <div style="text-align:center"><?php
 
-<?php
-//Qu'est ce qu'on veut faire ? poster, répondre ou éditer ?
 $action = (isset($_GET['action']))?htmlspecialchars($_GET['action']):'';
-
-//Il faut être connecté pour poster !
 if ($id==0) erreur(ERR_IS_CO);
-
-//Si on veut poster un nouveau topic, la variable f se trouve dans l'url,
-//On récupère certaines valeurs
 if (isset($_GET['f']))
 {
     $forum = (int) $_GET['f'];
@@ -27,11 +20,9 @@ if (isset($_GET['f']))
     $query->execute();
     $data=$query->fetch();
     echo '<p>&nbsp; &nbsp;<i>Vous êtes ici</i> : &nbsp; &nbsp; <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp;  
-    <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  ||  Nouveau topic</p>';
+    <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  &nbsp; &nbsp; Nouveau topic</p>';
 }
- 
-//Sinon c'est un nouveau message, on a la variable t et
-//On récupère f grâce à une requête
+
 elseif (isset($_GET['t']))
 {
     $topic = (int) $_GET['t'];
@@ -45,13 +36,11 @@ elseif (isset($_GET['t']))
     $data=$query->fetch();
     $forum = $data['forum_id'];  
 
-    echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  
+    echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp; 
     <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>
-    <a href="voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>  ||  Répondre</p>';
+    <a href="voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>  &nbsp; &nbsp; Répondre</p>';
 }
- 
-//Enfin sinon c'est au sujet de la modération(on verra plus tard en détail)
-//On ne connait que le post, il faut chercher le reste
+
 elseif (isset ($_GET['p']))
 {
     $post = (int) $_GET['p'];
@@ -68,7 +57,7 @@ elseif (isset ($_GET['p']))
     $topic = $data['topic_id'];
     $forum = $data['forum_id'];
  
-    echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  ||  <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  ||  <a href="voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>  ||  Modérer un message</p>';
+    echo '<p><i>Vous êtes ici</i> : <a href="../membres/accueil.php">Index du forum</a>  &nbsp; &nbsp; <a href="voirforum.php?f='.$data['forum_id'].'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>  &nbsp; &nbsp; <a href="voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>  &nbsp; &nbsp; Modérer un message</p>';
 }
 $query->CloseCursor();  
 
@@ -76,18 +65,17 @@ $query->CloseCursor();
 
 switch($action)
 {
-	case "repondre": //Premier cas on souhaite répondre
+	case "repondre":
 	?>
-	<h2>Poster une réponse</h2>
-
+	
 	<form method="post" action="postok.php?action=repondre&amp;t=<?php echo $topic ?>" name="formulaire">
 
-	<fieldset><legend>Mise en forme</legend>
+	<fieldset><p style="color:black;text-align:left">
 	<input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
 	<input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
 	<input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)" />
 	<input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
-	<br /><br />
+	 &nbsp; &nbsp; 
 	<img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
 	<img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
 	<img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
@@ -97,33 +85,28 @@ switch($action)
 	<img src="img/choc.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
 	<img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
 	<img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
-	</fieldset>
-	<fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"></textarea><br/><br/>
-    <input type="submit" name="submit" value="Envoyer" />
-	<input type="reset" name = "Effacer" value = "Effacer"/>    
-    </fieldset>
- 
-
-	</form>
+	<br/>
+	<p style="color:black; text-align:left">Message<br/>
+	<textarea cols="80" rows="8" id="message" name="message"></textarea><br/><br/>
+    	<input type="submit" name="submit" value="Envoyer" />
+	<input type="reset" name = "Effacer" value = "Effacer"/></p>   
+    	</fieldset>
+ 	</form>
 	<?php
 break;
  
 	case "nouveautopic":
         
 	?>
-
-	<h2>Nouveau topic</h2>
 	<form method="post" action="postok.php?action=nouveautopic&amp;f=<?php echo $forum ?>" name="formulaire">
 
-	<fieldset><legend>Titre</legend>
-	<input type="text" size="80" id="titre" name="titre" /></fieldset>
-
-	<fieldset><legend>Mise en forme</legend>
+	<fieldset><p style="color:black;text-align:left">Titre<br/>
+	<input type="text" size="30" id="titre" name="titre" /><br/><br/>
 	<input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
 	<input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
 	<input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)" />
 	<input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
-	<br /><br />
+	 &nbsp; &nbsp; 
 	<img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
 	<img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
 	<img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
@@ -132,11 +115,9 @@ break;
 	<img src="img/huh.png" title="confus" alt="confus" onClick="javascript:smilies(' :s ');return(false)" />
 	<img src="img/choc.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
 	<img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
-	<img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
-    </fieldset>
- 
-	<fieldset><legend>Message</legend>
-	<textarea cols="80" rows="8" id="message" name="message"></textarea><br/>
+	<img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" /><br/>
+   	<p style="color:black;text-align:left">Message<br/>
+	<textarea cols="80" rows="8" id="message" name="message"></textarea></p><br/>
         <?php
         $query=$db->prepare('SELECT membre_rang
                 FROM forum_membres WHERE membre_id=:id');
@@ -160,9 +141,6 @@ break;
         
         case "edit":
             $post = (int) $_GET['p'];
-            echo'<h1>Edition</h1>';
-
-            //On lance enfin notre requête
 
             $query=$db->prepare('SELECT post_createur, post_texte, auth_modo FROM forum_post
             LEFT JOIN forum_forum ON forum_post.post_forum_id = forum_forum.forum_id
@@ -171,25 +149,22 @@ break;
             $query->execute();
             $data=$query->fetch();
 
-            $text_edit = $data['post_texte']; //On récupère le message
+            $text_edit = $data['post_texte'];
 
-            //Ensuite on vérifie que le membre a le droit d'être ici (soit le créateur soit un modo/admin) 
             if($data['post_createur'] != $id)
             {
-                // Si cette condition n'est pas remplie ça va barder :o
                 erreur(ERR_AUTH_EDIT);
             }
-            else //Sinon ça roule et on affiche la suite
+            else 
             {
-                //Le formulaire de postage
                 ?>
                 <form method="post" action="postok.php?action=edit&amp;p=<?php echo $post ?>" name="formulaire">
-                <fieldset><legend>Mise en forme</legend>
+                <fieldset>
                 <input type="button" id="gras" name="gras" value="Gras" onClick="javascript:bbcode('[g]', '[/g]');return(false)" />
                 <input type="button" id="italic" name="italic" value="Italic" onClick="javascript:bbcode('[i]', '[/i]');return(false)" />
                 <input type="button" id="souligné" name="souligné" value="Souligné" onClick="javascript:bbcode('[s]', '[/s]');return(false)"/>
                 <input type="button" id="lien" name="lien" value="Lien" onClick="javascript:bbcode('[url]', '[/url]');return(false)" />
-                <br /><br />
+                 &nbsp; &nbsp;
                 <img src="img/heureux.png" title="heureux" alt="heureux" onClick="javascript:smilies(' :D ');return(false)" />
                 <img src="img/smile.png" title="lol" alt="lol" onClick="javascript:smilies(' :lol: ');return(false)" />
                 <img src="img/triste.png" title="triste" alt="triste" onClick="javascript:smilies(' :triste: ');return(false)" />
@@ -199,9 +174,10 @@ break;
                 <img src="img/choc.png" title="choc" alt="choc" onClick="javascript:smilies(' :o ');return(false)" />
                 <img src="img/point-int.gif" title="?" alt="?" onClick="javascript:smilies(' :interrogation: ');return(false)" />
                 <img src="img/pirate.png" title="!" alt="!" onClick="javascript:smilies(' :exclamation: ');return(false)" />
-                </fieldset>
+               
 
-                <fieldset><legend>Message</legend><textarea cols="80" rows="8" id="message" name="message"><?php echo $text_edit ?>
+                <fieldset><p style="color:black;text-align:left">Message</p>
+		<textarea cols="80" rows="8" id="message" name="message"><?php echo $text_edit ?>
                 </textarea><br/>
                 <br/><input type="submit" name="submit" value="Editer !" />
                 <input type="reset" name = "Effacer" value = "Effacer"/>
@@ -209,7 +185,7 @@ break;
                 </form>
                 <?php
             }
-        break; //Fin de ce cas :o
+        break;
         
         case "delete": 
             $post = (int) $_GET['p'];
@@ -236,10 +212,11 @@ break;
 		
 	
 
-default: //Si jamais c'est aucun de ceux là c'est qu'il y a eu un problème :o
+default:
 echo'<p>Cette action est impossible</p>';
-} //Fin du switch
+}
 ?>
+</div>
 </div>
 </body>
 </html>

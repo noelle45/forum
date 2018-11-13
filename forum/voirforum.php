@@ -186,6 +186,8 @@ else //S'il n'y a pas de message
         echo'<p>Ce forum ne contient aucun sujet actuellement</p>';
 }
 $query->CloseCursor();
+
+include("../includes/footer_membres.php");
 ?>
 </div>
 </body></html>

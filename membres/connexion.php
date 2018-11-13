@@ -73,6 +73,7 @@ else
     $query->CloseCursor();
     }
     echo $message.'</div></body></html>';
+include("../includes/footer_membres.php");
     include("includes/footer_simple.php");
 
 }

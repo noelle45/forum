@@ -1,37 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+p, h1,h2,h3
+{font-family: 'Quicksand', sans-serif;color: #9E9698}
+
 body
 {
-	background-color: #EAECEE;
+	background-color:#690828 ;
 }
 
-#banniere
+.include_fixed
 {
-width: 600px;
-height: 150px;
-background-position:  center;
-margin-bottom: 20px; 
-background-image: url('images/banniere.jpg');
-}
-
-#corps_forum
-{
-border: 1px solid black;
-width: 90%;
-margin-top: 50px;
-margin-left: 5%;
-margin-bottom: 10Opx;
-padding: 5px;
-background-color: rgb(237,224,213);
-}
-
-#footer
-{
-border: 1px solid black;
-width: 90%;
-margin-top: 50px;
-margin-left: 5%;
-margin-bottom: 10Opx;
-padding: 5px;
-background-color: rgb(237,224,213);
+    background-color: #872143;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .ico {width:2%}
@@ -56,19 +38,31 @@ th
   padding-left : 25px;
   padding-right : 25px;
   height : 40px;
-  color:#524E50;
-  background-color : #9E9698;
+  color: #9E9698;
+  background-color : #524E4F;
+}
+
+.roundedImage
+{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    width:100px;
+    height:100px;
+    border: white 1px solid;
+    box-shadow: 1px 2px 18px #A5A4A4;
 }
 
 td
 {
-  color : #524E4F;
+  color : #9E9698;
   font-size: 15px;
   padding-left : 25px;	
   padding-right:25px;
   padding-bottom : 8px;
   padding-top : 8px;
-  background-color: #CDC2C4;
+  background-color: #75696C;
   vertical-align:top;
   text-align : left;
 }
@@ -85,7 +79,7 @@ table
 
 a, a:hover, a:focus, a:active
 {
-  color: #524E4F; 
+  color:#9E9698; 
 }
 
 .p_message
@@ -94,32 +88,31 @@ a, a:hover, a:focus, a:active
 	font-size : 20px;
 }
 
-.field_constants 
-{ 
-	width : 400px; text-align: left;
-	color: gray;
+.p_baniere_petit
+{
+    font-size: 15px;
+    margin-left: 25px;
 }
 
-.legend
+.p_menu
 {
-	color: black;
-	font-size: 20px;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.parag_centre
+{
+    text-align: center;
 }
 
 fieldset
 {
-	color:gray;
+	color: #524E4F;
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
-	background-image: ;
-	background-repeat: no-repeat;
-	background-position: top;
-	background-position: right;
-	background-color:white;
-	position: absolute;
-	margin-left: 35%;
-	margin-top: ;
+	background-color:#9E9698;
+	margin-left:25%;
 }
 
 h1

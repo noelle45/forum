@@ -71,18 +71,14 @@ else
 
 				//On vérifie les droits du membre
 				//(partie du code commentée plus tard)
-				echo'<tr><td><strong>
+				echo'<tr><td class="td_titre"><strong>
 				<a href="../membres/voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">
 				'.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</a></strong></td>';
 
-				/* Si on est l'auteur du message, on affiche des liens pour
-				Modérer celui-ci.
-				Les modérateurs pourront aussi le faire, il faudra donc revenir sur
-				ce code un peu plus tard ! */     
-   
-         if ($id == $data['post_createur'] || $data['membre_rang']<=3)
+
+				if($id == $data['post_createur'] || $_SESSION['id'] == 1)
          {
-				echo'<td id=p_'.$data['post_id'].'>Posté à '.date('H\hi \l\e d M y',$data['post_time']).'
+				echo'<td class="td_titre" id=p_'.$data['post_id'].'>Posté à '.date('H\hi \l\e d M y',$data['post_time']).'
 				<a href="poster.php?p='.$data['post_id'].'&amp;action=delete">
 				<img src="../img/icones/delete.gif" alt="Supprimer" title="Supprimer ce message" /></a>
 				
@@ -91,7 +87,7 @@ else
          }
          else
          {
-				echo'<td>
+				echo'<td class="td_titre">
 				Posté à '.date('H\hi \l\e d M y',$data['post_time']).'
 				</td></tr>';
          }
@@ -100,9 +96,9 @@ else
          echo'<tr><td>';
         
             if(!empty($data['membre_avatar'])){
-                echo '<img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Avatar" />';}
+                echo '<img src="../membres/avatars/'.$data['membre_avatar'].'" alt="Avatar" height="60px" />';}
             else{
-                echo '<img src="../membres/avatars/compte100.png" alt="Avatar" />';}
+                echo '<img src="../membres/avatars/compte100.png" alt="Avatar" height="60px"/>';}
          
          echo '<br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
          <br />Messages : '.$data['membre_post'].'<br />
@@ -111,23 +107,25 @@ else
          //Message
          echo'<td>'.code(nl2br(stripslashes(htmlspecialchars($data['post_texte'])))).'
          <br /><hr />'.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'</td></tr>';
-         } //Fin de la boucle ! \o/
+         }
          $query->CloseCursor();
 
          ?>
 </table>
 <?php
 	
-$query=$db->prepare('SELECT membre_rang
-FROM forum_membres WHERE membre_id=:id');
-$query->bindValue(':id',$id,PDO::PARAM_INT);
-$query->execute();
-$data=$query->fetch();
-
-if($data["membre_rang"] > 1){
-echo '<h1>';
-echo'<br/><a href="poster.php?action=repondre&amp;t='.$topic.'"><img src="../img/icones/repondre.gif" alt="Répondre" title="Répondre à ce topic"/></a>&nbsp;&nbsp;<a href="poster.php?action=nouveautopic&amp;f='.$forum.'"><img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
-echo '</h1>';
+if(isset($_SESSION['pseudo'])){
+	$query=$db->prepare('SELECT topic_locked FROM forum_topic WHERE topic_id = :topic');
+	$query->bindValue(':topic',$topic,PDO::PARAM_INT);
+	$query->execute(); 
+	$data=$query->fetch();
+	echo '<h2 style="text-align:center">Ce topic est cloturé</h2>';
+	echo '<p style="text-align:center"><a href="../membres/accueil.php">Retour</a></p>,';
+	if($data['topic_locked'] != 0){
+	echo '<h1>';
+	echo'<br/><a href="poster.php?action=repondre&amp;t='.$topic.'"><img src="../img/icones/repondre.gif" alt="Répondre" title="Répondre à ce topic"/></a>&nbsp;&nbsp;<a href="poster.php?action=nouveautopic&amp;f='.$forum.'"><img src="../img/icones/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a></h1>';
+	echo '</h1>';
+	}
 }
 	
         echo '<h1>Page : ';
@@ -197,6 +195,8 @@ else //Sinon le topic est déverrouillé !
 }
 }
 $query->CloseCursor();
+
+include("../includes/footer_membres.php");
 ?>
        
 </div>

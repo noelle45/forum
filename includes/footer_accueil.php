@@ -1,6 +1,6 @@
 <div class="footer">
 
-<p style="margin-top:75px">&nbsp; &nbsp; 
+<p style="margin-top:45px">&nbsp; &nbsp; 
 <i>Qui est en ligne ?</i>
 </p>
     
@@ -12,9 +12,10 @@ $query = $db->query('SELECT membre_pseudo, membre_id FROM forum_membres ORDER BY
 $data = $query->fetch();
 $derniermembre = stripslashes(htmlspecialchars($data['membre_pseudo']));
 
-//echo'<p> &nbsp; &nbsp; Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
+echo'<p> &nbsp; &nbsp; Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
 echo'<p>&nbsp; &nbsp; Le forum comptent <strong>'.$TotalDesMembres.'</strong> membres.<br />';
 echo'&nbsp; &nbsp; Le dernier membre inscrit est <a href="../membres/voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">'.$derniermembre.'</a>.</p>';
+
 $query->CloseCursor();
 
 $count_online = 0;
