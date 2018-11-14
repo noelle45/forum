@@ -191,7 +191,7 @@ switch($action)
                 $page = ceil($nbr_post / $nombreDeMessagesParPage);
                 echo'<p>Votre message a bien été édité!<br /><br />
                 
-                Cliquez <a href="./voirtopic.php?t='.$topic.'&amp;page='.$page.'#p_'.$post.'">ici</a> pour le voir</p>';
+                Cliquez <a href="voirtopic.php?t='.$topic.'&amp;page='.$page.'#p_'.$post.'">ici</a> pour le voir</p>';
                 $query->CloseCursor();
             }
         break;
@@ -232,7 +232,7 @@ switch($action)
 
                     echo'<p>Vous avez choisi de supprimer un post.
                     Cependant ce post est le premier du topic. Voulez vous supprimer le topic ? <br />
-                    <a href="./postok.php?action=delete_topic&amp;t='.$topic.'">oui</a> - <a href="./voirtopic.php?t='.$topic.'">non</a>
+                    <a href="postok.php?action=delete_topic&amp;t='.$topic.'">oui</a> - <a href="voirtopic.php?t='.$topic.'">non</a>
                     </p>';
                     $query->CloseCursor();                     
                 }
@@ -286,8 +286,8 @@ switch($action)
                     $query->CloseCursor();  
 
                     echo'<p>Le message a bien été supprimé !<br />
-                    Cliquez <a href="./voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
-                    Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+                    Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
+                    Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil</p>';
 
                 }
                 else 
@@ -315,8 +315,8 @@ switch($action)
                     $query->CloseCursor();  
 
                     echo'<p>Le message a bien été supprimé !<br />
-                    Cliquez <a href="./voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
-                    Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+                    Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
+                    Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil</p>';
                 }
 
             }
@@ -391,7 +391,7 @@ switch($action)
                     $query->CloseCursor();
 
                     echo'<p>Le topic a bien été supprimé !<br />
-                    Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+                    Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil</p>';
 
                 }
             break;
@@ -419,8 +419,8 @@ switch($action)
                     $query->CloseCursor();
 
                     echo'<p>Le topic a bien été verrouillé ! <br />
-                    Cliquez <a href="./voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
-                    Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+                    Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
+                    Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil</p>';
                 }
             break;
 
@@ -447,8 +447,8 @@ switch($action)
                 $query->CloseCursor();
 
                 echo'<p>Le topic a bien été déverrouillé !<br />
-                Cliquez <a href="./voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
-                Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+                Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a> pour retourner au topic<br />
+                Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil/p>';
             }
         break;
         
@@ -531,13 +531,86 @@ switch($action)
         $query->CloseCursor();
 
         echo'<p>Le topic a bien été déplacé <br />
-        Cliquez <a href="./voirtopic.php?t='.$topic.'">ici</a> pour revenir au topic<br />
-        Cliquez <a href="./index.php">ici</a> pour revenir à l index du forum</p>';
+        Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a> pour revenir au topic<br />
+        Cliquez <a href="../membres/accueil.php">ici</a> pour revenir à l\'accueil</p>';
     }
 break;
 
     default;
-    echo '<p class="p_message"> Votre message n\'a pas pu être envoyé <br/> <a href="../membres/accueil"> Retour au forum </p>';
+        
+case "autorep":
+    $topic = (int) $_GET['t'];
+    $query=$db->prepare('SELECT forum_topic.forum_id, auth_modo
+    FROM forum_topic
+    LEFT JOIN forum_forum ON forum_forum.forum_id = forum_topic.forum_id
+    WHERE topic_id = :topic');
+    $query->bindValue(':topic',$topic,PDO::PARAM_INT);
+    $query->execute();
+    $data=$query->fetch();
+    $forum=$data['forum_id'];
+        if (!verif_auth($data['auth_modo']))
+        {
+            erreur(ERR_AUTH_MODO);
+        }
+        $query->CloseCursor();
+        
+        $rep = (int) $_POST['rep'];
+        $query=$db->prepare('SELECT automess_mess FROM forum_automess 
+        WHERE automess_id = :rep');
+        $query->bindValue(':rep',$rep,PDO::PARAM_INT);
+        $query->execute();
+        $data = $query->fetch();
+        $message = $data['automess_mess'];
+        $query->CloseCursor();
+        
+        $query=$db->prepare('INSERT INTO forum_post
+        (post_createur, post_texte, post_time, topic_id, post_forum_id)
+        VALUES(:id,:mess,:temps,:topic,:forum)');
+        $query->bindValue(':id', $id, PDO::PARAM_INT);   
+        $query->bindValue(':mess', $message, PDO::PARAM_STR);  
+        $query->bindValue(':temps', time(), PDO::PARAM_INT);  
+        $query->bindValue(':topic', $topic, PDO::PARAM_INT);   
+        $query->bindValue(':forum', $forum, PDO::PARAM_INT); 
+        $query->execute();
+
+        $nouveaupost = $db->lastInsertId();
+        $query->CloseCursor(); 
+
+        //On change un peu la table forum_topic
+        $query=$db->prepare('UPDATE forum_topic SET topic_post = topic_post + 1, topic_last_post = :nouveaupost WHERE topic_id =:topic');
+        $query->bindValue(':nouveaupost', (int) $nouveaupost, PDO::PARAM_INT);   
+        $query->bindValue(':topic', (int) $topic, PDO::PARAM_INT); 
+        $query->execute();
+        $query->CloseCursor(); 
+
+        //Puis même combat sur les 2 autres tables
+        $query=$db->prepare('UPDATE forum_forum SET forum_post = forum_post + 1 , forum_last_post_id = :nouveaupost WHERE forum_id = :forum');
+        $query->bindValue(':nouveaupost', (int) $nouveaupost, PDO::PARAM_INT);   
+        $query->bindValue(':forum', (int) $forum, PDO::PARAM_INT); 
+        $query->execute();
+        $query->CloseCursor(); 
+
+        $query=$db->prepare('UPDATE forum_membres SET membre_post = membre_post + 1 WHERE membre_id = :id');
+        $query->bindValue(':id', $id, PDO::PARAM_INT); 
+        $query->execute();
+        $query->CloseCursor(); 
+        
+        $query=$db->prepare('UPDATE forum_topic
+        SET topic_locked = :lock
+        WHERE topic_id = :topic');
+        $query->bindValue(':lock','1',PDO::PARAM_STR);
+        $query->bindValue(':topic',$topic,PDO::PARAM_INT);
+        $query->execute();
+        $query->CloseCursor();
+
+        echo '<p>La réponse automatique a bien été envoyée ! <br />
+        Cliquez <a href="voirtopic.php?t='.$topic.'">ici</a>
+        pour revenir au topic<br />
+        Cliquez <a href="../membres/accueil.php">ici</a>
+        pour revenir à l\'accueeil</p>';
+break;
+
+    echo '<p class="p_message"> Votre message n\'a pas pu être envoyé <br/> <a href="../membres/accueil.php"> Retour au forum </p>';
         
 }
 ?>
@@ -545,4 +618,5 @@ break;
 </div>
 </body>
 </html>
+
 

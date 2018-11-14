@@ -128,7 +128,7 @@ if(isset($_SESSION['pseudo'])){
 	}
 }
 	
-        echo '<h1>Page : ';
+        echo '<p style="text-align:center">Page : ';
         for ($i = 1 ; $i <= $nombreDePages ; $i++)
         {
                 if ($i == $page) //On affiche pas la page actuelle en lien
@@ -141,7 +141,7 @@ if(isset($_SESSION['pseudo'])){
                 ' . $i . '</a> ';
                 }
         }
-        echo'</h1>';
+        echo'</p>';
        
         //On ajoute 1 au nombre de visites de ce topic
         $query=$db->prepare('UPDATE forum_topic
@@ -160,11 +160,19 @@ $query=$db->prepare('SELECT forum_id, forum_name FROM forum_forum WHERE forum_id
 $query->bindValue(':forum',$forum,PDO::PARAM_INT);
 $query->execute();
 
-if($data['membre_rang']>=3)
-{
+//****************************************PARTI ADMIN***********************************************
 
-//$forum a été définie tout en haut de la page !
-echo'<p>Déplacer vers :</p>
+if($data['membre_rang']>=3)
+?> <hr> <?php
+echo'<br/><h2 style="text-align:center">Admistration du Topic</h2>';
+{
+echo'<table>
+<tr>
+<th> <p>Déplacer vers :</p> </th>
+<th> <p>Etat du forum :</p> </th>
+<th> <p>Réponse automatique :</p> </th>
+</tr>
+<td>
 <form method="post" action=postok.php?action=deplacer&amp;t='.$topic.'>
 <select name="dest">';               
 while($data=$query->fetch())
@@ -177,7 +185,9 @@ echo'
 <input type="hidden" name="from" value='.$forum.'>
 <input type="submit" name="submit" value="Envoyer" />
 </form>';
-
+echo'</td>';
+ //***************************************************************
+echo'<td>';
 $query = $db->prepare('SELECT topic_locked FROM forum_topic WHERE topic_id = :topic');
 $query->bindValue(':topic',$topic,PDO::PARAM_INT);
 $query->execute();
@@ -185,16 +195,34 @@ $data=$query->fetch();
 
 if ($data['topic_locked'] == 1) // Topic verrouillé !
 {
-    echo'<a href="./postok.php?action=unlock&t='.$topic.'">
-    <img src="img/unlock.png" alt="deverrouiller" title="Déverrouiller ce sujet" /></a><br/>';
+    echo'<h3 style="text-align:center;color:black"><a href="./postok.php?action=unlock&t='.$topic.'">
+    <img src="img/lock.png" alt="deverrouiller" title="Déverrouiller ce sujet" /><br/>Clôturé</a></h3><br/>';
 }
 else //Sinon le topic est déverrouillé !
 {
-    echo'<a href="./postok.php?action=lock&amp;t='.$topic.'"><br/>
-    <img src="img/lock.png" alt="verrouiller" title="Verrouiller ce sujet" /></a>';
+    echo'<h3 style="text-align:center;color:black"><a href="./postok.php?action=lock&amp;t='.$topic.'"><br/>
+    <img src="img/unlock.png" alt="verrouiller" title="Verrouiller ce sujet" /><br/>Ouvert</a></h3>';
 }
 }
 $query->CloseCursor();
+echo'</td>';
+//**********************************************************************
+echo'<td>
+<form method="post" action=postok.php?action=autorep&amp;t='.$topic.'>
+<select name="rep">';
+$query=$db->query('SELECT automess_id, automess_titre
+FROM forum_automess');
+while ($data = $query->fetch())
+{
+     echo '<option value="'.$data['automess_id'].'">
+     '.$data['automess_titre'].'</option>';
+}
+echo '</select>  
+<input type="submit" name="submit" value="Envoyer" /></form>';
+$query->CloseCursor();
+echo'</td>
+</tr>
+</table>';
 
 include("../includes/footer_membres.php");
 ?>

@@ -79,8 +79,13 @@ table
 
 a, a:hover, a:focus, a:active
 {
-  color:#9E9698; 
+  color:#9E9698;
 }
+
+a:link 
+{ 
+text-decoration:none; 
+} 
 
 .p_message
 {
@@ -107,11 +112,11 @@ a, a:hover, a:focus, a:active
 
 fieldset
 {
-	color: #524E4F;
+	color: gray;
 	font-size: 15px;
 	margin-top : 10px;
 	width:50%;
-	background-color:#9E9698;
+	background-color:white;
 	margin-left:25%;
 }
 

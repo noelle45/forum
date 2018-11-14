@@ -15,14 +15,12 @@ include("../includes/constants.php");
                 $query->execute();
                 $data=$query->fetch();
 
- 
-include("../includes/baniere-membres.php");
-?>
-	<div style="text-align: center">
-<?php
-
 if (isset($_SESSION['pseudo']))
 {
+include('../includes/baniere-membres.php');
+?>
+<div style="text-align: center">
+<?php
         echo'&nbsp; &nbsp; <i><p class="p_baniere">Vous êtes ici : &nbsp; &nbsp; </i><a href ="accueil.php"> Accueil forum</a><br/><br/>';
         $totaldesmessages = 0;
         $categorie = NULL;
@@ -99,4 +97,5 @@ if (isset($_SESSION['pseudo']))
     
 include("../includes/footer_accueil.php");
 }
+else{include('../includes/functions2.php');}
 ?>

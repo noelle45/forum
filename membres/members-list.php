@@ -94,13 +94,13 @@ if ($query->rowCount() > 0)
            echo '<tr>
 	   <td style="text-align:center"><a href="voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">
            '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</a></td>
-           <td style="text-align:center">'.$data['membre_post'].'</td>
-           <td style="text-align:center">'.date('d/m/Y',$data['membre_inscrit']).'</td>
-           <td style="text-align:center">'.date('d/m/Y',$data['membre_derniere_visite']).'</td>';
+           <td style="text-align:center;color:black">'.$data['membre_post'].'</td>
+           <td style="text-align:center;color:black">'.date('d/m/Y',$data['membre_inscrit']).'</td>
+           <td style="text-align:center;color:black">'.date('d/m/Y',$data['membre_derniere_visite']).'</td>';
 
            if (empty($data['online_id'])) 
-	   echo '<td style="text-align:center"><img class="roundedImageIcon" src="img/noconnect.png" height="30px"></td>'; 
-           else echo '<td style="text-align:center"><img class="roundedImageIcon" src="img/connect.png" height="30px"></td>';
+	   echo '<td style="text-align:center;color:black"><img class="roundedImageIcon" src="img/noconnect.png" height="30px"></td>'; 
+           else echo '<td style="text-align:center;color:black"><img class="roundedImageIcon" src="img/connect.png" height="30px"></td>';
            echo '</tr>';
        }
        $query->CloseCursor();

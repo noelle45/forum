@@ -1,4 +1,4 @@
-<meta http-equiv="refresh" content="1 ; url=./membres/accueil.php">
+<meta http-equiv="refresh" content="1 ; url=../index.php">
 <?php
 function erreur($err='')
 {

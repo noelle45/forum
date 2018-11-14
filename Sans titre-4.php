@@ -73,8 +73,6 @@ else
 {
     if ($query->rowCount() > 0)
     {
-
-?><div style="text-align:center"><?php
        while ($data = $query->fetch())
        {   if(!empty($data['membre_avatar'])){
            echo ' &nbsp; &nbsp; <a href="membres/accueil.php" ><img class="roundedImage" src="membres/avatars/'.$data['membre_avatar'].'" title="'.$data['membre_pseudo'].' - Inscrit depuis le '.date('d/m/Y',$data['membre_inscrit']).' - Dernière visite le : '.date('d/m/Y',$data['membre_derniere_visite']).'" type="submit"</a>';
@@ -96,5 +94,3 @@ echo' &nbsp; &nbsp; ';}
 
 ?>
 </div>
-
-
